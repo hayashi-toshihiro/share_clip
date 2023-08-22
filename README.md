@@ -36,3 +36,7 @@ Twitchにはクリップという配信の見どころを切り取る便利機�
 作成ページ一覧：　https://www.figma.com/files/drafts?fuid=1247421629732133027
 
 今回編集の共有ができていませんが、Figmaの無料プランでは３ファイルまでとなっているようですので、閲覧のみでの共有となっております。
+
+
+--ER図--
+![ER Diagram](images/ER.drawio.png)
