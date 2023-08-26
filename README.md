@@ -39,4 +39,4 @@ Twitchにはクリップという配信の見どころを切り取る便利機�
 
 
 --ER図--
-![ER Diagram](images/ER.drawio.png)
+![Alt text](images/ER%E5%9B%B3.drawio.png)
