@@ -12,6 +12,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="row">
+      <div class="col-3">
+        <%= render 'shared/left_sidebar' %>
+      </div>
+      <div class="col-6">
+        <%= yield %>
+      </div>
+      <div class="col-3">
+        <%= render 'shared/right_sidebar' %>
+      </div>
   </body>
 </html>
