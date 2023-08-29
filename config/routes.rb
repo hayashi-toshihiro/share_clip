@@ -2,12 +2,7 @@ Rails.application.routes.draw do
   get 'test', to: 'test#new'
 
   resources :users, only: %i[new create]
-  resources :clip_posts do
-    collection do
-      get :likes
-    end
-  end
-
+  resources :clip_posts
   resources :like, only: %i[create destroy]
 
   get 'terms', to: 'satatic_pages#terms'
