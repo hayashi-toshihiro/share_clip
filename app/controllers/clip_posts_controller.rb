@@ -19,7 +19,4 @@ class ClipPostsController < ApplicationController
 
   def destroy
   end
-
-  def likes
-  end
 end
