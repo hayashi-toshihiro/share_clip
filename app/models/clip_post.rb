@@ -1,0 +1,2 @@
+class ClipPost < ApplicationRecord
+end

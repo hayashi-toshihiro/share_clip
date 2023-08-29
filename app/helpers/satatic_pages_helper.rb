@@ -1,0 +1,2 @@
+module SataticPagesHelper
+end
