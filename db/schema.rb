@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_24_042563) do
+ActiveRecord::Schema.define(version: 2023_08_26_030848) do
+
+  create_table "clip_posts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "url", null: false
+    t.string "thumbnail"
+    t.string "streamer"
+    t.string "title"
+    t.string "clip_created_at"
+    t.integer "views"
+    t.string "content_title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_clip_posts_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "clip_post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["clip_post_id"], name: "index_likes_on_clip_post_id"
+    t.index ["user_id", "clip_post_id"], name: "index_likes_on_user_id_and_clip_post_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
@@ -43,5 +67,16 @@ ActiveRecord::Schema.define(version: 2023_08_24_042563) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "likes", "clip_posts"
   add_foreign_key "taggings", "tags"
 end
