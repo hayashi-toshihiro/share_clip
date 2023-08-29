@@ -1,1 +1,15 @@
-<%= "left_side" %>
+<p>クリップシェアリングサービス24h</p>
+<div class="row bg-light ms-3 nav">
+  <div class="d-flex align-items-center">
+    <%= content_tag :i, nil, class: "fa-solid fa-list" %>
+    <%= link_to "クリップ一覧", clip_posts_path, class: "nav-link" %>
+  </div>
+  <div class="d-flex align-items-center">
+    <%= content_tag :i, nil, class: "fa-solid fa-thumbs-up" %>
+    <%= link_to "いいね一覧", likes_clip_posts_path, class: "nav-link" %>
+  </div>
+  <div class="d-flex align-items-center">
+    <%= content_tag :i, nil, class: "fa-solid fa-pencil" %>
+    <%= link_to "新規作成",new_clip_post_path, class: "nav-link" %>
+  </div>
+</div>
