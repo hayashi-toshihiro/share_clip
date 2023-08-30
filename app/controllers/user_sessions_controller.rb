@@ -1,10 +1,18 @@
 class UserSessionsController < ApplicationController
-   def new
-   end
+   skip_before_action :require_login, only: %i[new create]
+   def new; end
 
    def create
+     @user = login(params[:email], params[:password])
+     if @user
+      redirect_back_or_to clip_posts_path, success: "ログインに成功しました"
+     else
+      render :new
+     end
    end
 
    def destroy
+     logout
+     redirect_to login_path
    end
 end
