@@ -1,0 +1,68 @@
+<%= render 'shared/title_bar', title: "新規投稿" %>
+<div class="container bg-light p-3 vh-100">
+  <!-- プレビュー画面 -->
+  <div class="container border-dark border-1 border">
+    <div class="row mb-3 bg-white">
+      <div class="col h3 ms-3">broadcaster_name</div>
+      <div class="col d-flex justify-content-end align-items-end small">
+        <div class="border-bottom border-dark text-muted">clip_created_at</div>
+      </div>
+    </div>
+    <div class="row mb-3 bg-white">
+      <div class="text-center mb-2">えいちイチ！えぬエーエーエー!!!</div>
+      <div class="d-flex justify-content-center mb-2">
+        <div class="ratio" style="--bs-aspect-ratio: 50%; width: 500px;">
+          <iframe src="https://www.youtube.com/embed/AoUxjQOQW7A"></iframe>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-3">
+        <div class="row">タグコンテンツ</div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="row form-control border" style="width: 98%">コメントコンテンツ</div>
+      </div>
+    </div>
+    <div class="row mb-3 bg-white">
+      <div class="d-flex align-items-center justify-content-end">
+        <i class="fa-regular fa-thumbs-up"></i>
+        <div class="text-end">いいね！</div>
+      </div>
+    </div>
+  </div>
+  <!-- 投稿フォーム -->
+  <div class="container border-dark border-1 border mt-2">
+    <div class="text-center h5 mt-2">内容の入力</div>
+    <%= form_with(model: @user, local: true) do |form| %>
+      <!-- クリップの貼り付け -->
+      <div class="mb-2 row mt-4">
+        <div class="col-9 pr-0">
+          <%= form.text_field :email, class: "form-control", placeholder: "クリップのurlを貼ってね" %>
+        </div>
+        <div class="col-3">
+          <%= form.button "表示", type: "submit", class: "btn btn-primary" %>
+        </div>
+      </div>
+
+      <!-- コメントの入力 -->
+      <div class="mb-2">
+        <%= form.text_area "clip_posts[comments]", class: "form-control", placeholder: "コメントを入力してください" %>
+      </div>
+
+      <!-- タグの入力 -->
+      <div class="mb-2">
+        <%= form.text_field "user[password_confirmation]", class: "form-control", placeholder: "タグを入力" %>
+      </div>
+
+      <!-- プレビューボタン -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-end">
+          <%= form.button "プレビュー", type: "submit", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <!-- 投稿ボタン -->
+      <div class="d-flex justify-content-center mb-3">
+        <%= form.button "投稿する", type: "submit", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
