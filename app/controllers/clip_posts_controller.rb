@@ -1,4 +1,5 @@
 class ClipPostsController < ApplicationController
+
   def new
   end
 
