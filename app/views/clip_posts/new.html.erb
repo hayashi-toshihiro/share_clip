@@ -32,25 +32,25 @@
   <!-- 投稿フォーム -->
   <div class="container border-dark border-1 border mt-2">
     <div class="text-center h5 mt-2">内容の入力</div>
-    <%= form_with(model: @user, local: true) do |form| %>
+    <%= form_with(model: @clip_post, local: true) do |form| %>
       <!-- クリップの貼り付け -->
       <div class="mb-2 row mt-4">
         <div class="col-9 pr-0">
-          <%= form.text_field :email, class: "form-control", placeholder: "クリップのurlを貼ってね" %>
+          <%= form.text_field :url, class: "form-control", placeholder: "クリップのurlを貼ってね" %>
         </div>
         <div class="col-3">
           <%= form.button "表示", type: "submit", class: "btn btn-primary" %>
         </div>
       </div>
 
-      <!-- コメントの入力 -->
+      <!-- コンテンツタイトルの入力 -->
       <div class="mb-2">
-        <%= form.text_area "clip_posts[comments]", class: "form-control", placeholder: "コメントを入力してください" %>
+        <%= form.text_area :content_title, class: "form-control", placeholder: "タイトルを入力してください" %>
       </div>
 
       <!-- タグの入力 -->
       <div class="mb-2">
-        <%= form.text_field "user[password_confirmation]", class: "form-control", placeholder: "タグを入力" %>
+        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), class: "form-control", placeholder: "タグを入力" %>
       </div>
 
       <!-- プレビューボタン -->
