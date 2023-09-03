@@ -31,6 +31,23 @@ class ClipPostsController < ApplicationController
   def likes
   end
 
+  def get_clip
+    url = params[:url]
+    data = TwitchApi.new.get_clip(url)
+    clip_data = data["data"].first
+
+    preview_post = ClipPost.new(
+      thumbnail: clip_data["thumbnail_url"],
+      streamer: clip_data["broadcaster_name"],
+      title: clip_data["title"],
+      clip_created_at: clip_data["created_at"],
+      views: clip_data["view_count"],
+      content_title: params[:content_title],
+      tag_list: params[:tag_list]
+    )
+    binding.pry
+  end
+
   private
 
   def clip_post_params

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'test', to: 'test#new'
+  get 'clip_posts/get_clip', to: 'clip_posts#get_clip'
 
   resources :users, only: %i[new create]
   resources :clip_posts do

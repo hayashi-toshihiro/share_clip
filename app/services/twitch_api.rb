@@ -3,7 +3,11 @@ require 'json'
 require 'uri'
 
 class TwitchApi
-  def get_clip(clip_id)
+  def get_clip(url)
+    # urlからclip_idを取り出す。
+    uri = URI.parse(url)
+    clip_id = uri.path.split('/').last
+
     # Twitch APIのエンドポイント
     url = "https://api.twitch.tv/helix/clips?id=#{clip_id}"
     
@@ -28,10 +32,3 @@ class TwitchApi
     return nil
   end
 end
-
-url = "https://www.twitch.tv/akamikarubi/clip/BumblingShinyEndiveVoHiYo-G4qhbaXZCTBN3WXp?featured=true&filter=clips&range=all&sort=time"
-uri = URI.parse(url)
-clip_id = uri.path.split('/').last
-puts clip_id
-a = TwitchApi.new
-puts a.get_clip(clip_id)
