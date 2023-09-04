@@ -1,3 +1,10 @@
 // Place all the styles related to the clip_posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.tag_wrapper {
+    background: #7fffd4; /*背景色*/
+    padding: 3px 10px;/*文字周りの余白*/
+    color: darkblue;/*文字を白に*/
+    border-radius: 125px;/*角の丸み*/
+    position: relative;
+  }

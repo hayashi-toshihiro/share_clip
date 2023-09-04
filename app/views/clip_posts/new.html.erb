@@ -1,33 +1,8 @@
 <%= render 'shared/title_bar', title: "新規投稿" %>
 <div class="container bg-light p-3 vh-100">
   <!-- プレビュー画面 -->
-  <div class="container border-dark border-1 border">
-    <div class="row mb-3 bg-white">
-      <div class="col h3 ms-3">broadcaster_name</div>
-      <div class="col d-flex justify-content-end align-items-end small">
-        <div class="border-bottom border-dark text-muted">clip_created_at</div>
-      </div>
-    </div>
-    <div class="row mb-3 bg-white">
-      <div class="text-center mb-2">えいちイチ！えぬエーエーエー!!!</div>
-      <div class="d-flex justify-content-center mb-2">
-        <div class="ratio" style="--bs-aspect-ratio: 50%; width: 500px;">
-          <iframe src="https://www.youtube.com/embed/AoUxjQOQW7A"></iframe>
-        </div>
-      </div>
-      <div class="d-flex justify-content-center mb-3">
-        <div class="row">タグコンテンツ</div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div class="row form-control border" style="width: 98%">コメントコンテンツ</div>
-      </div>
-    </div>
-    <div class="row mb-3 bg-white">
-      <div class="d-flex align-items-center justify-content-end">
-        <i class="fa-regular fa-thumbs-up"></i>
-        <div class="text-end">いいね！</div>
-      </div>
-    </div>
+  <div id="preview_form">
+    <%= render 'form.html.erb', preview_post: @preview_post, id: "preview_form" %>
   </div>
   <!-- 投稿フォーム -->
   <div class="container border-dark border-1 border mt-2">
@@ -36,27 +11,27 @@
       <!-- クリップの貼り付け -->
       <div class="mb-2 row mt-4">
         <div class="col-9 pr-0">
-          <%= form.text_field :url, class: "form-control", placeholder: "クリップのurlを貼ってね" %>
+          <%= form.text_field :url, id:"clip_url", class: "form-control", placeholder: "クリップのurlを貼ってね" %>
         </div>
         <div class="col-3">
-          <%= form.button "表示", type: "submit", class: "btn btn-primary" %>
+          <%= form.button "表示", type: "button", id: "preview_button", class: "btn btn-primary" %>
         </div>
       </div>
 
       <!-- コンテンツタイトルの入力 -->
       <div class="mb-2">
-        <%= form.text_area :content_title, class: "form-control", placeholder: "タイトルを入力してください" %>
+        <%= form.text_area :content_title, id: "content_title", class: "form-control", placeholder: "タイトルを入力してください" %>
       </div>
 
       <!-- タグの入力 -->
       <div class="mb-2">
-        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), class: "form-control", placeholder: "タグを入力" %>
+        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), id: "tag_list", class: "form-control", placeholder: "タグを入力" %>
       </div>
 
       <!-- プレビューボタン -->
       <div class="mb-3">
         <div class="d-flex justify-content-end">
-          <%= form.button "プレビュー", type: "submit", class: "btn btn-primary" %>
+          <%= form.button "プレビュー", type: "button", id: "clip_preview_button", class: "btn btn-primary" %>
         </div>
       </div>
       <!-- 投稿ボタン -->
