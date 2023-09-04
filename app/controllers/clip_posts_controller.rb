@@ -2,6 +2,15 @@ class ClipPostsController < ApplicationController
 
   def new
     @clip_post = ClipPost.new
+    @preview_post = ClipPost.new(
+      thumbnail: "https://clips-media-assets2.twitch.tv/ZVRdGDcuY5vZ5865K5yDqw/AT-cm%7CZVRdGDcuY5vZ5865K5yDqw-preview-480x272.jpg",
+      streamer: "赤見かるび",
+      title: "爆速一般通過SHAKA",
+      clip_created_at: "2023-07-18T20:51:57Z",
+      views: 327951,
+      content_title: "デフォルト",
+      tag_list: ["タグ1", "タグ2"]
+    )
   end
 
   def create
@@ -45,7 +54,10 @@ class ClipPostsController < ApplicationController
       content_title: params[:content_title],
       tag_list: params[:tag_list]
     )
-    binding.pry
+
+   respond_to do |format|
+     format.js { render 'get_clip.js.erb', locals: { preview_post: preview_post } }
+    end
   end
 
   private

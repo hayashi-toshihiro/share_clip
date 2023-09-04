@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("#preview_button").click(function() {
+  $("#preview_button, #clip_preview_button").click(function() {
     var url = $("#clip_url").val();
     var content_title = $("#content_title").val();
     var tag_list = $("#tag_list").val();
