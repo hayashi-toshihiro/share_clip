@@ -5,4 +5,8 @@ class User < ApplicationRecord
   has_many :like_clip_posts, through: :likes, source: :clip_posts
 
   validates :password, confirmation: true
+
+  def own?(object)
+    id == object.user_id
+  end
 end

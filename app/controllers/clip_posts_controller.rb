@@ -6,7 +6,7 @@ class ClipPostsController < ApplicationController
       thumbnail: "https://clips-media-assets2.twitch.tv/ZVRdGDcuY5vZ5865K5yDqw/AT-cm%7CZVRdGDcuY5vZ5865K5yDqw-preview-480x272.jpg",
       streamer: "赤見かるび",
       title: "爆速一般通過SHAKA",
-      clip_created_at: "2023-07-18T20:51:57Z",
+      clip_created_at: "07-18 20:51:57",
       views: 327951,
       content_title: "デフォルト",
       tag_list: ["タグ1", "タグ2"]
@@ -27,7 +27,7 @@ class ClipPostsController < ApplicationController
     @clip_post.thumbnail = clip_data["thumbnail_url"]
     @clip_post.streamer = clip_data["broadcaster_name"]
     @clip_post.title = clip_data["title"]
-    @clip_post.clip_created_at = clip_data["created_at"]
+    @clip_post.clip_created_at = Time.parse(clip_data["created_at"]).strftime("%m-%d %H:%M:%S")
     @clip_post.views = clip_data["view_count"]
     @clip_post.content_title = clip_post_params[:content_title]
     @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
@@ -40,7 +40,15 @@ class ClipPostsController < ApplicationController
   end
 
   def index
-    @clip_posts = ClipPost.all
+    if params[:clip_created_at]
+      @clip_posts = ClipPost.clip_created_at
+    elsif params[:most_views]
+      @clip_posts = ClipPost.most_views
+    elsif params[:created_at]
+      @clip_posts = ClipPost.created_at
+    else
+      @clip_posts = ClipPost.all.order(created_at: :desc)
+    end
   end
 
   def show
@@ -53,6 +61,9 @@ class ClipPostsController < ApplicationController
   end
 
   def destroy
+    clip_post = ClipPost.find(params[:id])
+    clip_post.destroy!
+    redirect_to clip_posts_path, success: "削除完了しました"
   end
 
   def likes
@@ -70,7 +81,7 @@ class ClipPostsController < ApplicationController
       thumbnail: clip_data["thumbnail_url"],
       streamer: clip_data["broadcaster_name"],
       title: clip_data["title"],
-      clip_created_at: clip_data["created_at"],
+      clip_created_at: Time.parse(clip_data["created_at"]).strftime("%m-%d %H:%M:%S"),
       views: clip_data["view_count"],
       content_title: params[:content_title],
       tag_list: [clip_data["broadcaster_name"],game_name["name"],params[:tag_list]]
