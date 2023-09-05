@@ -1,0 +1,19 @@
+<ul>
+  <% if current_user.own?(clip_post) %>
+    <li class='list-inline-item'>
+      <%= link_to edit_clip_post_path(clip_post) do %>
+        <i class="fa-solid fa-file-pen"></i>
+      <% end %>
+    </li>
+    <li class='list-inline-item'>
+      <%= link_to clip_post_path(clip_post), method: :delete do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
+    </li>
+  <% end %>
+  <li class='list-inline-item float-end'>
+    <%= link_to edit_clip_post_path(clip_post) do %>
+      <i class="fa-regular fa-thumbs-up"></i>
+    <% end %>
+  </li>
+</ul>

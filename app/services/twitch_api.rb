@@ -58,6 +58,3 @@ class TwitchApi
     return nil
   end
 end
-
-a = TwitchApi.new
-puts a.get_game_name("32982")
