@@ -15,6 +15,23 @@ class ClipPostsController < ApplicationController
 
   def create
     @clip_post = current_user.clip_posts.new(clip_post_params)
+
+    #Twitch APIで引っ張り出したデータを保存する。
+    data = TwitchApi.new.get_clip(clip_post_params[:url])
+    clip_data = data["data"].first
+
+    game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
+    game_name = game_data["data"].first
+    
+    @clip_post.url = clip_data["url"]
+    @clip_post.thumbnail = clip_data["thumbnail_url"]
+    @clip_post.streamer = clip_data["broadcaster_name"]
+    @clip_post.title = clip_data["title"]
+    @clip_post.clip_created_at = clip_data["created_at"]
+    @clip_post.views = clip_data["view_count"]
+    @clip_post.content_title = clip_post_params[:content_title]
+    @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
+
     if @clip_post.save
       redirect_to clip_posts_path, success: "保存が完了しました"
     else
@@ -23,6 +40,7 @@ class ClipPostsController < ApplicationController
   end
 
   def index
+    @clip_posts = ClipPost.all
   end
 
   def show
@@ -44,6 +62,9 @@ class ClipPostsController < ApplicationController
     url = params[:url]
     data = TwitchApi.new.get_clip(url)
     clip_data = data["data"].first
+    
+    game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
+    game_name = game_data["data"].first
 
     preview_post = ClipPost.new(
       thumbnail: clip_data["thumbnail_url"],
@@ -52,7 +73,7 @@ class ClipPostsController < ApplicationController
       clip_created_at: clip_data["created_at"],
       views: clip_data["view_count"],
       content_title: params[:content_title],
-      tag_list: params[:tag_list]
+      tag_list: [clip_data["broadcaster_name"],game_name["name"],params[:tag_list]]
     )
 
    respond_to do |format|
