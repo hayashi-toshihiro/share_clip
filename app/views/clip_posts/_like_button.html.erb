@@ -1,0 +1,5 @@
+<% if current_user.like?(clip_post) %>
+  <%= render 'clip_posts/unlike',{ clip_post: clip_post } %>
+<% else %>
+  <%= render 'clip_posts/like', { clip_post: clip_post } %>
+<% end %>

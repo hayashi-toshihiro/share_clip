@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :like, only: %i[create destroy]
+  resources :likes, only: %i[create destroy]
 
   get 'terms', to: 'satatic_pages#terms'
   get 'privacy_policy', to: 'satatic_pages#privacy_policy'
