@@ -12,8 +12,6 @@
     </li>
   <% end %>
   <li class='list-inline-item float-end'>
-    <%= link_to edit_clip_post_path(clip_post) do %>
-      <i class="fa-regular fa-thumbs-up"></i>
-    <% end %>
+    <%= render 'like_button', clip_post: clip_post %>
   </li>
 </ul>

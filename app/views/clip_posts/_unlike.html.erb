@@ -1,0 +1,7 @@
+<%= link_to like_path(current_user.likes.find_by(clip_post_id: clip_post.id)),
+      id: "like_button_#{clip_post.id}",
+      class: 'float-right',
+      method: :delete, 
+      remote: true do %>
+  <i class="fa-solid fa-thumbs-up"></i><% if false %>#黒いスター（ブックマーク済みを示す）link_to 先は、bookmarks#destroyで押すとブックマークを消す<% end %>
+<% end %>

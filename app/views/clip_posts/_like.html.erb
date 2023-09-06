@@ -1,0 +1,7 @@
+<%= link_to likes_path(clip_post_id: clip_post.id),
+       id: "like_button_#{clip_post.id}", 
+       class:'float-right',
+       method: :post,
+      remote: true do %>
+  <i class="fa-regular fa-thumbs-up"></i>
+<% end %>
