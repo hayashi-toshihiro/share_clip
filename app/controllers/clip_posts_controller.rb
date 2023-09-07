@@ -9,7 +9,8 @@ class ClipPostsController < ApplicationController
       clip_created_at: "07-18 20:51:57",
       views: 327951,
       content_title: "デフォルト",
-      tag_list: ["タグ1", "タグ2"]
+      tag_list: ["タグ1", "タグ2"],
+      embed_url: "https://clips.twitch.tv/embed?clip=BumblingShinyEndiveVoHiYo-G4qhbaXZCTBN3WXp"
     )
   end
 
@@ -31,6 +32,7 @@ class ClipPostsController < ApplicationController
     @clip_post.views = clip_data["view_count"]
     @clip_post.content_title = clip_post_params[:content_title]
     @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
+    @clip_post.embed_url = clip_data["embed_url"]
 
     if @clip_post.save
       redirect_to clip_posts_path, success: "保存が完了しました"
@@ -52,6 +54,8 @@ class ClipPostsController < ApplicationController
   end
 
   def show
+    @clip_post = ClipPost.find(params[:id])
+    render :layout => 'compact'
   end
 
   def edit
@@ -84,7 +88,8 @@ class ClipPostsController < ApplicationController
       clip_created_at: Time.parse(clip_data["created_at"]).strftime("%m-%d %H:%M:%S"),
       views: clip_data["view_count"],
       content_title: params[:content_title],
-      tag_list: [clip_data["broadcaster_name"],game_name["name"],params[:tag_list]]
+      tag_list: [clip_data["broadcaster_name"],game_name["name"],params[:tag_list]],
+      embed_url: clip_data["embed_url"]
     )
 
    respond_to do |format|

@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2023_08_26_030848) do
   create_table "clip_posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "url", null: false
+    t.string "embed_url"
     t.string "thumbnail"
     t.string "streamer"
     t.string "title"
