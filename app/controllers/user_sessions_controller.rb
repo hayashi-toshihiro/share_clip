@@ -13,6 +13,6 @@ class UserSessionsController < ApplicationController
 
    def destroy
      logout
-     redirect_to login_path
+     redirect_to login_path, danger: 'ログアウトしました'
    end
 end

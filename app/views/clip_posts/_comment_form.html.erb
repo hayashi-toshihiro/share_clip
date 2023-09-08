@@ -1,0 +1,9 @@
+<% comments.each do |comment| %>
+  <div class="mb-2" id="comment_<%= comment.id %>">
+    <div class="form-control border">
+      <%= comment.text %>
+      <div class="text-muted small"><%= comment.created_at.strftime("%m/%d %H:%M") %></div>
+      <%= render 'clip_posts/comment_crud_menus', comment: comment %>
+    </div>
+  </div>
+<% end %>
