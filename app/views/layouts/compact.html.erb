@@ -17,7 +17,11 @@
       <div class="col-10">
         <%= yield %>
       </div>
+      <% if logged_in? %>
       <%= render 'shared/compact_right_sidebar' %>
+      <% else %>
+      <%= render 'shared/compact_before_login_right_sidebar' %>
+      <% end %>
     </div>
     <%= render 'shared/footer' %>
   </body>

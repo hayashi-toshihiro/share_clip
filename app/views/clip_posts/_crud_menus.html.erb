@@ -1,4 +1,5 @@
-<ul>
+<ul style="margin-bottom: 0;">
+  <% if logged_in? %>
   <% if current_user.own?(clip_post) %>
     <li class='list-inline-item'>
       <%= link_to edit_clip_post_path(clip_post) do %>
@@ -14,4 +15,5 @@
   <li class='list-inline-item float-end'>
     <%= render 'like_button', clip_post: clip_post %>
   </li>
+  <% end %>
 </ul>

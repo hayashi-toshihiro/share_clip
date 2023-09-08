@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new create]
   resources :clip_posts do
+    resources :comments, shallow: true, only: %i[create destroy]
     collection do
       get :likes
     end
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
 
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
-  delete 'logout', to: 'user_sessions#destroy'
+  delete '/logout', to: 'user_sessions#destroy', as: :logout
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

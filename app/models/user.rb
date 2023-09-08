@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :clip_posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_clip_posts, through: :likes, source: :clip_post
+  has_many :comments, dependent: :destroy
 
   validates :password, confirmation: true
 

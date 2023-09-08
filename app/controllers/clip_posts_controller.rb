@@ -1,4 +1,5 @@
 class ClipPostsController < ApplicationController
+  skip_before_action :require_login, only: %i[index show get_clip]
 
   def new
     @clip_post = ClipPost.new
@@ -6,7 +7,7 @@ class ClipPostsController < ApplicationController
       thumbnail: "https://clips-media-assets2.twitch.tv/ZVRdGDcuY5vZ5865K5yDqw/AT-cm%7CZVRdGDcuY5vZ5865K5yDqw-preview-480x272.jpg",
       streamer: "赤見かるび",
       title: "爆速一般通過SHAKA",
-      clip_created_at: "07-18 20:51:57",
+      clip_created_at: "07/18 20:51:57",
       views: 327951,
       content_title: "デフォルト",
       tag_list: ["タグ1", "タグ2"],
@@ -28,7 +29,7 @@ class ClipPostsController < ApplicationController
     @clip_post.thumbnail = clip_data["thumbnail_url"]
     @clip_post.streamer = clip_data["broadcaster_name"]
     @clip_post.title = clip_data["title"]
-    @clip_post.clip_created_at = Time.parse(clip_data["created_at"]).strftime("%m-%d %H:%M:%S")
+    @clip_post.clip_created_at = Time.parse(clip_data["created_at"]).strftime("%m/%d %H:%M:%S")
     @clip_post.views = clip_data["view_count"]
     @clip_post.content_title = clip_post_params[:content_title]
     @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
@@ -55,6 +56,8 @@ class ClipPostsController < ApplicationController
 
   def show
     @clip_post = ClipPost.find(params[:id])
+    @comment = Comment.new
+    @comments = @clip_post.comments.includes(:user).order(created_at: :desc)
     render :layout => 'compact'
   end
 

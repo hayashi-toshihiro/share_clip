@@ -19,44 +19,30 @@
         <%= render 'tag_form.html.erb', clip_post: @clip_post %>
       </div>
       <div class="d-flex justify-content-center">
-        <div class="row form-control border" style="width: 98%">コメントコンテンツ</div>
+        <div class="row form-control border" style="width: 98%"><%= @clip_post.content_title %></div>
       </div>
     </div>
-    <div class="row mb-3 bg-white">
-      <div class="d-flex align-items-center justify-content-end">
-        <i class="fa-regular fa-thumbs-up"></i>
-        <div class="text-end">いいね！</div>
-      </div>
+    <div class="row mb-3 bg-white ps-3 pe-3">
+     <%= render 'crud_menus.html.erb', clip_post: @clip_post %>
     </div>
   </div>
 
   <!-- コメントの投稿フォーム -->
   <div class="container border-dark border-1 border mt-2">
     <div class="text-center h5 mt-3">コメント一覧</div>
-    <%= form_with(model: @user, url: users_path(@user), method: "post") do |form| %>
+    <%= form_with(model: @comment, url: [@clip_post, @comment], local: false) do |form| %>
       <div class="mb-2 row mt-5">
         <div class="mb-3 text-center">
           <div class="d-flex flex-column align-items-center">
-            <%= form.text_field :email, class: "form-control mb-3", placeholder: "コメントを入力してください" %>
+            <%= form.text_field :text, id: "comment_new_form", class: "form-control mb-3", placeholder: "コメントを入力してください" %>
             <%= form.submit '投稿する', class: 'btn btn-primary' %>
           </div>
         </div>
       </div>
     <% end %>
     <!-- コメント一覧 -->
-    <div class="mb-2">
-      <div class="form-control border">
-        <p>コメントですよ</p>
-        <div class="text-muted small">07-20 14:03:48</div>
-        <%= render 'comment_crud_menus', clip_post: @clip_post %>
-      </div>
-    </div>
-    <div class="mb-2">
-      <div class="form-control border">
-        <p>コメントですよ</p>
-        <div class="text-muted small">07-20 14:03:48</div>
-        <%= render 'comment_crud_menus', clip_post: @clip_post %>
-      </div>
+    <div class="mb-5" id="comment_form">
+    <%= render 'comment_form.html.erb', comments: @comments %>
     </div>
   </div>
 </div>

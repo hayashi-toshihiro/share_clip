@@ -2,14 +2,9 @@
   <div class="d-flex flex-column mt-3 me-4">
     <!-- 編集リンク -->
     <div class="flex-item mb-3">
-      <%= link_to  new_user_path do %>
-        <i class="fa-solid fa-user-plus fa-4x" style="color: gray;"></i>
-      <% end %>
-    </div>
-    <div class="flex-item mb-3 mt-3">
-      <%= link_to login_path do %>
-        <i class="fa-solid fa-arrow-right-to-bracket fa-4x" style="color: gray;"></i>
-      <% end %>
+    <%= link_to logout_path, method: :delete do %>
+      <i class="fa-solid fa-arrow-right-from-bracket fa-4x" style="color: gray;"></i>
+    <% end %>
     </div>
   </div>
 </div>
