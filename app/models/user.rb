@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :like_clip_posts, through: :likes, source: :clip_post
   has_many :comments, dependent: :destroy
+  has_many :comment_likes, dependent: :destroy
+  has_many :comment_like_comments, through: :comment_likes, source: :comment
 
   validates :password, confirmation: true
 
@@ -21,5 +23,17 @@ class User < ApplicationRecord
 
   def like?(clip_post)
     like_clip_posts.include?(clip_post)
+  end
+
+  def comment_like(comment)
+    comment_like_comments << comment
+  end
+
+  def comment_unlike(comment)
+    comment_like_comments.destroy(comment)
+  end
+
+  def comment_like?(comment)
+    comment_like_comments.include?(comment)
   end
 end
