@@ -1,5 +1,5 @@
-<%= link_to likes_path(clip_post_id: clip_post.id),
-       id: "like_button_#{clip_post.id}", 
+<%= link_to comment_likes_path(comment_id: comment.id),
+       id: "comment_like_button_#{comment.id}", 
        class:'float-right',
        method: :post,
       remote: true do %>

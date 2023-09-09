@@ -1,5 +1,5 @@
-<%= link_to like_path(current_user.likes.find_by(clip_post_id: clip_post.id)),
-      id: "like_button_#{clip_post.id}",
+<%= link_to comment_like_path(current_user.comment_likes.find_by(comment_id: comment.id)),
+      id: "comment_like_button_#{comment.id}",
       class: 'float-right',
       method: :delete, 
       remote: true do %>

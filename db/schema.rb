@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_08_004740) do
+ActiveRecord::Schema.define(version: 2023_09_09_002952) do
 
   create_table "clip_posts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 2023_09_08_004740) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_clip_posts_on_user_id"
+  end
+
+  create_table "comment_likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_comment_likes_on_comment_id"
+    t.index ["user_id"], name: "index_comment_likes_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -42,6 +51,7 @@ ActiveRecord::Schema.define(version: 2023_09_08_004740) do
     t.integer "clip_post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "\"user_id\", \"comment_id\"", name: "index_likes_on_user_id_and_comment_id", unique: true
     t.index ["clip_post_id"], name: "index_likes_on_clip_post_id"
     t.index ["user_id", "clip_post_id"], name: "index_likes_on_user_id_and_clip_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
@@ -88,6 +98,7 @@ ActiveRecord::Schema.define(version: 2023_09_08_004740) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "comment_likes", "comments"
   add_foreign_key "likes", "clip_posts"
   add_foreign_key "taggings", "tags"
 end

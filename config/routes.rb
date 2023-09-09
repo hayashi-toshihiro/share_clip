@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :likes, only: %i[create destroy]
+  resources :comment_likes, only: %i[create destroy]
 
   get 'terms', to: 'satatic_pages#terms'
   get 'privacy_policy', to: 'satatic_pages#privacy_policy'
