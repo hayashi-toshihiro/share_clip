@@ -5,11 +5,9 @@ $(document).ready(function() {
     var tag_list = $("#tag_list").val();
     console.log(url);
     $.ajax({
-        url: "get_clip",
+        url: "/clip_posts/get_clip",
         method: "GET",
         data: {url: url, content_title: content_title, tag_list: tag_list }
     })
   })
 });
-
-console.log("プレビュー")
