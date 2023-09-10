@@ -1,4 +1,4 @@
-<% if current_user.like?(comment) %>
+<% if current_user.comment_like?(comment) %>
   <%= render 'clip_posts/comment_unlike',{ comment: comment } %>
 <% else %>
   <%= render 'clip_posts/comment_like', { comment: comment } %>

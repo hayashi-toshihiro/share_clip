@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2023_09_09_002952) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["comment_id"], name: "index_comment_likes_on_comment_id"
+    t.index ["user_id", "comment_id"], name: "index_comment_likes_on_user_id_and_comment_id", unique: true
     t.index ["user_id"], name: "index_comment_likes_on_user_id"
   end
 
@@ -51,7 +52,6 @@ ActiveRecord::Schema.define(version: 2023_09_09_002952) do
     t.integer "clip_post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"user_id\", \"comment_id\"", name: "index_likes_on_user_id_and_comment_id", unique: true
     t.index ["clip_post_id"], name: "index_likes_on_clip_post_id"
     t.index ["user_id", "clip_post_id"], name: "index_likes_on_user_id_and_clip_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"

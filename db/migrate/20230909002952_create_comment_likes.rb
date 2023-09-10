@@ -6,6 +6,6 @@ class CreateCommentLikes < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :likes, %i[user_id comment_id], unique: true
+    add_index :comment_likes, %i[user_id comment_id], unique: true
   end
 end

@@ -3,5 +3,6 @@
       class: 'float-right',
       method: :delete, 
       remote: true do %>
-  <i class="fa-solid fa-thumbs-up"></i><% if false %>#黒いスター（ブックマーク済みを示す）link_to 先は、bookmarks#destroyで押すとブックマークを消す<% end %>
+  <i class="fa-solid fa-thumbs-up"></i>
+  <%= clip_post.likes.count %>
 <% end %>
