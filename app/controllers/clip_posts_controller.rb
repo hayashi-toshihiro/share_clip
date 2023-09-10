@@ -82,6 +82,15 @@ class ClipPostsController < ApplicationController
   end
 
   def likes
+    if params[:clip_created_at]
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).clip_created_at
+    elsif params[:most_views]
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).most_views
+    elsif params[:created_at]
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).created_at
+    else
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).order(created_at: :desc)
+    end
   end
 
   def get_clip
