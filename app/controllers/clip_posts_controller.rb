@@ -62,9 +62,17 @@ class ClipPostsController < ApplicationController
   end
 
   def edit
+    @preview_post = ClipPost.find(params[:id])
+    @clip_post = ClipPost.find(params[:id])
   end
 
   def update
+    @clip_post = ClipPost.find(params[:id])
+    if @clip_post.update(clip_post_params)
+      redirect_to @clip_post, success: '変更できたヨ'
+    else
+      render :edit
+    end
   end
 
   def destroy
