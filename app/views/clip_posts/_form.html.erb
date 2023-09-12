@@ -9,8 +9,8 @@
     <div class="text-center mb-2"><%= clip_post.title %></div>
     <div class="d-flex justify-content-center mb-2">
     <%= link_to clip_post_path(clip_post) do %>
-      <div class="ratio" style="--bs-aspect-ratio: 56.25%; width: 500px;">
-        <%= image_tag clip_post.thumbnail %>
+      <div class="" style="--bs-aspect-ratio: 56.25%;">
+        <%= image_tag clip_post.thumbnail, style: "max-width: 100%" %>
       </div>
     <% end %>
     </div>
