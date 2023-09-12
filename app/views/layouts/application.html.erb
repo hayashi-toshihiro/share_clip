@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <div class="row vh-100">
+    <div class="row mb-24">
       <%= render 'shared/left_sidebar' %>
       <div class="col-6">
         <%= yield %>
@@ -23,6 +23,8 @@
         <%= render 'shared/before_login_right_sidebar' %>
       <% end %>
     </div>
+    <footer>
     <%= render 'shared/footer' %>
+    </fotter>
   </body>
 </html>
