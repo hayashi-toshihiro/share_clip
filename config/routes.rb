@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'privacy_policy', to: 'satatic_pages#privacy_policy'
 
   get 'contact', to: 'contacts#new'
-  post 'contact', to: 'cotacts#create'
+  post 'contact', to: 'contacts#create'
   get 'contact/success', to: 'contacts#success'
 
   get 'login', to: 'user_sessions#new'

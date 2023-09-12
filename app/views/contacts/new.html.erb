@@ -1,0 +1,25 @@
+<%= render 'shared/title_bar', title: "ご要望・お問い合わせ" %>
+<div class="container border-dark border-1 border mt-2">
+  <div class="text-center h5 mt-2">内容の入力</div>
+  <%= form_with url: contact_path, method: :post do |form| %>
+
+  <!-- メールアドレス -->
+  <div class="mb-2 row mt-4">
+    <div class="col-9 pr-0">
+      <%= form.label :email, "メールアドレス" %>
+      <%= form.email_field :email, class: "form-control", placeholder: "返信を希望する場合は入力してください" %>
+    </div>
+  </div>
+
+    <!-- お問い合わせ内容の入力 -->
+    <div class="mb-2">
+      <%= form.label :contact_text, "ご要望・お問い合わせ" %>
+      <%= form.text_area :contact_text, class: "form-control", placeholder: "ご要望・お問い合わせ内容を入力してください" %>
+    </div>
+
+    <!-- 送信ボタン -->
+    <div class="d-flex justify-content-center mb-3">
+      <%= form.button "送信する", type: "submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
