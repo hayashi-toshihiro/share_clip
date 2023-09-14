@@ -1,6 +1,8 @@
 <div class="col-3">
-  <p>クリップシェアリングサービス24h</p>
-  <div class="row bg-light ms-3 nav">
+  <div class="text-center font-title text-info">
+  <h3>Clip Reactor</h3>
+  </div>
+  <div class="row bg-light ms-3 nav mt-3">
     <div class="d-flex align-items-center">
       <%= content_tag :i, nil, class: "fa-solid fa-list" %>
       <%= link_to "クリップ一覧", clip_posts_path, class: "nav-link" %>
@@ -13,5 +15,16 @@
       <%= content_tag :i, nil, class: "fa-solid fa-pencil" %>
       <%= link_to "新規作成",new_clip_post_path, class: "nav-link" %>
     </div>
+  </div>
+
+<!-- 検索フォーム
+  <div class="row bg-light ms-3 mt-3 pt-3">
+    <%= render 'shared/search_form' %>
+  </div>
+-->
+
+  <!-- タグ一覧 -->
+  <div class="row bg-light ms-3 mt-3 pt-3">
+  <%= render 'shared/tag_index' %>
   </div>
 </div>

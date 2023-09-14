@@ -1,12 +1,12 @@
 <%= render 'shared/title_bar', title: "いいね一覧" %>
 <div class="bg-light">
-<div class="container d-flex justify-content-end bg-light">
+<div class="container d-flex justify-content-end background-color-lightyellow">
   <%= link_to '時系列順', likes_clip_posts_path(clip_created_at: "true"), class: "ms-3" %>
   <%= link_to '再生数順', likes_clip_posts_path(most_views: "true"), class: "ms-3" %>
   <%= link_to '投稿順', likes_clip_posts_path(created_at: "true"), class: "ms-3" %>
 </div>
 <% @clip_posts.each do |clip_post| %>
-  <div class="container mb-1 bg-light">
+  <div class="container mb-1 background-color-lightyellow">
     <%= render 'form.html.erb', clip_post: clip_post %>
   </div>
 <% end %>

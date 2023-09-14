@@ -2,55 +2,68 @@ class ClipPostsController < ApplicationController
   skip_before_action :require_login, only: %i[index show get_clip]
 
   def new
-    @clip_post = ClipPost.new
-    @preview_post = ClipPost.new(
+    @clip_post = ClipPost.new(
       thumbnail: "https://clips-media-assets2.twitch.tv/ZVRdGDcuY5vZ5865K5yDqw/AT-cm%7CZVRdGDcuY5vZ5865K5yDqw-preview-480x272.jpg",
       streamer: "赤見かるび",
       title: "爆速一般通過SHAKA",
       clip_created_at: "07/18 20:51:57",
       views: 327951,
-      content_title: "デフォルト",
-      tag_list: ["タグ1", "タグ2"],
+      content_title: "",
+      tag_list: [""],
       embed_url: "https://clips.twitch.tv/embed?clip=BumblingShinyEndiveVoHiYo-G4qhbaXZCTBN3WXp"
     )
   end
 
   def create
     @clip_post = current_user.clip_posts.new(clip_post_params)
+    if @clip_post.valid?
 
-    #Twitch APIで引っ張り出したデータを保存する。
-    data = TwitchApi.new.get_clip(clip_post_params[:url])
-    clip_data = data["data"].first
+      # Twitch APIで引っ張り出したデータを保存する。
+      data = TwitchApi.new.get_clip(clip_post_params[:url])
 
-    game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
-    game_name = game_data["data"].first
-    
-    @clip_post.url = clip_data["url"]
-    @clip_post.thumbnail = clip_data["thumbnail_url"]
-    @clip_post.streamer = clip_data["broadcaster_name"]
-    @clip_post.title = clip_data["title"]
-    @clip_post.clip_created_at = Time.parse(clip_data["created_at"]).strftime("%m/%d %H:%M:%S")
-    @clip_post.views = clip_data["view_count"]
-    @clip_post.content_title = clip_post_params[:content_title]
-    @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
-    @clip_post.embed_url = clip_data["embed_url"]
-
-    if @clip_post.save
-      redirect_to clip_posts_path, success: "保存が完了しました"
+      clip_data = data["data"].first
+  
+      # game_nameを取り出す
+      game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
+      game_name = game_data["data"].first
+      
+      @clip_post.url = clip_data["url"]
+      @clip_post.thumbnail = clip_data["thumbnail_url"]
+      @clip_post.streamer = clip_data["broadcaster_name"]
+      @clip_post.title = clip_data["title"]
+      @clip_post.clip_created_at = Time.parse(clip_data["created_at"]).strftime("%m/%d %H:%M:%S")
+      @clip_post.views = clip_data["view_count"]
+      @clip_post.content_title = clip_post_params[:content_title]
+      @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
+      @clip_post.embed_url = clip_data["embed_url"]
+  
+      if @clip_post.save
+        redirect_to clip_posts_path, success: "投稿したヨ"
+      else
+        render :new, error: "失敗しちゃったヨ"
+      end
     else
-      render :new
+      redirect_to new_clip_post_path, danger: "クリップが見つからないヨ"
     end
   end
 
   def index
+    # タグでの検索
+    @clip_posts = if (tag_name = params[:tag_name])
+                    ClipPost.with_tag(tag_name)
+                  else
+                    ClipPost.all
+                  end
+
+    # 投稿の並び替え
     if params[:clip_created_at]
-      @clip_posts = ClipPost.clip_created_at
+      @clip_posts = @clip_posts.clip_created_at
     elsif params[:most_views]
-      @clip_posts = ClipPost.most_views
+      @clip_posts = @clip_posts.most_views
     elsif params[:created_at]
-      @clip_posts = ClipPost.created_at
+      @clip_posts = @clip_posts.created_at
     else
-      @clip_posts = ClipPost.all.order(created_at: :desc)
+      @clip_posts = @clip_posts.all.order(created_at: :desc)
     end
   end
 
@@ -71,6 +84,9 @@ class ClipPostsController < ApplicationController
     if @clip_post.update(clip_post_params)
       redirect_to @clip_post, success: '変更できたヨ'
     else
+      puts @clip_post.errors.full_messages
+      @preview_post = @clip_post
+      flash.now[:danger] = "変更できなかったヨ"
       render :edit
     end
   end
@@ -78,7 +94,7 @@ class ClipPostsController < ApplicationController
   def destroy
     clip_post = ClipPost.find(params[:id])
     clip_post.destroy!
-    redirect_to clip_posts_path, success: "削除完了しました"
+    redirect_to clip_posts_path, success: "削除できたヨ"
   end
 
   def likes

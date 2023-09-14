@@ -1,6 +1,9 @@
 // Place all the styles related to the clip_posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
+@import url('https://fonts.googleapis.com/css?family=Kosugi');
+
 .tag_wrapper {
     background: #7fffd4; /*背景色*/
     padding: 3px 10px;/*文字周りの余白*/
@@ -15,4 +18,27 @@
 
 .mb-24 {
   margin-bottom: 24px;
+}
+
+.no-decoration {
+  text-decoration: none;
+}
+
+.font-round {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #b003c0;
+}
+
+.font-title {
+  font-family: 'Kosugi', sans-serif;
+}
+
+.background-color-lightblue {
+  background-color: rgb(243, 255, 255);
+}
+.background-color-lightred {
+  background-color: rgb(255, 248, 248);
+}
+.background-color-lightyellow {
+  background-color: rgb(255, 254, 239);;
 }

@@ -1,0 +1,9 @@
+<div class="d-flex flex-wrap">
+  <% ClipPost.tags_on(:tags).order(name: :asc).each do |tag| %>
+    <div class="flex-item ms-1">
+    <%= link_to clip_posts_path(tag_name: tag.name), class: "no-decoration" do %>
+      <p class="tag_wrapper" style="font-size: 12px"><%= tag %></p>
+    <% end %>
+    </div>
+  <% end %>
+</div>
