@@ -1,0 +1,8 @@
+<%= search_form_for @q || ClipPost.ransack(params[:q]), url: clip_posts_path do |f| %>
+  <div class="input-group">
+    <%= f.search_field :tags_name_cont, class: 'form-control', placeholder: "タグを入力してください" %>
+  </div>
+  <div class="input-group-append text-center">
+    <%= f.submit '検索', class: 'btn btn-primary' %>
+  </div>
+<% end %>

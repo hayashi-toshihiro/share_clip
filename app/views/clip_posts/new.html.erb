@@ -1,8 +1,8 @@
 <%= render 'shared/title_bar', title: "新規投稿" %>
-<div class="container bg-light p-3 vh-100">
+<div class="container background-color-lightblue p-3 vh-100">
   <!-- プレビュー画面 -->
   <div id="preview_form">
-    <%= render 'preview_form.html.erb', preview_post: @preview_post, id: "preview_form" %>
+    <%= render 'preview_form.html.erb', preview_post: @clip_post, id: "preview_form" %>
   </div>
   <!-- 投稿フォーム -->
   <div class="container border-dark border-1 border mt-2">
@@ -12,21 +12,26 @@
       <!-- クリップの貼り付け -->
       <div class="mb-2 row mt-4">
         <div class="col-9 pr-0">
-          <%= form.text_field :url, id:"clip_url", class: "form-control", placeholder: "クリップのurlを貼ってね" %>
+          <%= form.text_field :url, id:"clip_url", class: "form-control", placeholder: "クリップのurlを貼ってネ" %>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <%= form.button "表示", type: "button", id: "preview_button", class: "btn btn-primary" %>
+        </div>
+        <div class="col-1", style="padding: 0px;">
+          <%= link_to "https://www.twitch.tv/", target: :_blank, rel: "noopener noreferrer" do %>
+            <%= image_tag "icons8-twitch-48.png", size: "30x30" %>
+          <% end %>
         </div>
       </div>
 
       <!-- コンテンツタイトルの入力 -->
       <div class="mb-2">
-        <%= form.text_area :content_title, id: "content_title", class: "form-control", placeholder: "タイトルを入力してください" %>
+        <%= form.text_area :content_title, id: "content_title", class: "form-control", placeholder: "コメント入力してネ（なくてもイイヨ）" %>
       </div>
 
       <!-- タグの入力 -->
       <div class="mb-2">
-        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), id: "tag_list", class: "form-control", placeholder: "タグを入力" %>
+        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), id: "tag_list", class: "form-control", placeholder: "タグを入力(配信者名とゲーム名は自動で追加されるヨ)" %>
       </div>
 
       <!-- プレビューボタン -->

@@ -7,7 +7,9 @@ class User < ApplicationRecord
   has_many :comment_likes, dependent: :destroy
   has_many :comment_like_comments, through: :comment_likes, source: :comment
 
+  validates :email, uniqueness: true, presence: true
   validates :password, confirmation: true
+  
 
   def own?(object)
     id == object.user_id
