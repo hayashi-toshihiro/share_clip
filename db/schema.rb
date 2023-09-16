@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_12_014545) do
+ActiveRecord::Schema.define(version: 2023_09_15_044557) do
 
   create_table "clip_posts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2023_09_12_014545) do
     t.string "embed_url"
     t.string "thumbnail"
     t.string "streamer"
+    t.string "streamer_image"
     t.string "title"
     t.string "clip_created_at"
     t.integer "views"
@@ -47,12 +48,13 @@ ActiveRecord::Schema.define(version: 2023_09_12_014545) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "inquiries", force: :cascade do |t|
-    t.string "name"
-    t.string "message"
-    t.string "email"
+  create_table "images", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "image_url", null: false
+    t.string "image_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_images_on_name", unique: true
   end
 
   create_table "likes", force: :cascade do |t|
@@ -97,7 +99,7 @@ ActiveRecord::Schema.define(version: 2023_09_12_014545) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "stamp_url"
     t.string "email", null: false
     t.string "crypted_password"
     t.string "salt"

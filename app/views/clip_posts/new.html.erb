@@ -31,7 +31,16 @@
 
       <!-- タグの入力 -->
       <div class="mb-2">
-        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), id: "tag_list", class: "form-control", placeholder: "タグを入力(配信者名とゲーム名は自動で追加されるヨ)" %>
+        <%= form.label :game_list, "ゲームタグ" %>
+        <%= form.text_field :game_list, value: @clip_post.tag_list.join(','), id: "game_list", class: "form-control", readonly: true, style: "background-color: #f0f0f0;", placeholder: "ここは自動入力ダヨ"  %>
+      </div>
+      <div class="mb-2">
+        <%= form.label :streamer_list, "登場配信者タグ" %>
+        <%= form.text_field :streamer_list, value: @clip_post.tag_list.join(','), id: "streamer_list", class: "form-control", placeholder: "登場する配信者の名前をいれテネ" %>
+      </div>
+      <div class="mb-2">
+        <%= form.label :tag_list, "自由タグ" %>
+        <%= form.text_field :tag_list, value: @clip_post.tag_list.join(','), id: "tag_list", class: "form-control", placeholder: "イベント名とかキーワードを入れテネ" %>
       </div>
 
       <!-- プレビューボタン -->

@@ -1,6 +1,9 @@
 <div class="container border-dark border-1 border">
   <div class="row mt-3 mb-3 bg-white">
-    <div class="col h3 ms-3"><%= preview_post.streamer %></div>
+    <div class="col h3 ms-3">
+      <%= image_tag preview_post.streamer_image, class: "rounded-circle me-2", size: "50x50" %>
+      <%= preview_post.streamer %>
+    </div>
     <div class="col d-flex justify-content-end align-items-end small">
       <div class="border-bottom border-dark text-muted"><%= preview_post.clip_created_at %></div>
     </div>

@@ -13,6 +13,13 @@
       <%= form.label :password_confirmation, "パスワードの確認", class: "form-label float-start" %>
       <%= form.password_field :password_confirmation, class: "form-control", id: "exampleInputPassword1" %>
     </div>
+    <div class="mb-3">
+      <%= form.hidden_field :stamp_url, id: "stamp_url" %>
+      <%= image_tag "default.png", id: "stamp_image_tag", size: "112x112" %>
+    </div>
+    <div class="mb-3">
+      <%= render 'streamer_index' %>
+    </div>
     <div class="d-flex justify-content-center">
       <%= form.button "アカウント作成", type: "submit", class: "btn btn-primary" %>
     </div>

@@ -10,32 +10,24 @@ class ClipPostsController < ApplicationController
       views: 327951,
       content_title: "",
       tag_list: [""],
-      embed_url: "https://clips.twitch.tv/embed?clip=BumblingShinyEndiveVoHiYo-G4qhbaXZCTBN3WXp"
+      embed_url: "https://clips.twitch.tv/embed?clip=BumblingShinyEndiveVoHiYo-G4qhbaXZCTBN3WXp",
+      streamer_image: "https://static-cdn.jtvnw.net/jtv_user_pictures/f5ba0ca0-2187-41ea-b7bb-d0457b1dba0e-profile_image-300x300.png"
     )
   end
 
   def create
     @clip_post = current_user.clip_posts.new(clip_post_params)
     if @clip_post.valid?
-
       # Twitch APIで引っ張り出したデータを保存する。
       data = TwitchApi.new.get_clip(clip_post_params[:url])
-
       clip_data = data["data"].first
-  
-      # game_nameを取り出す
       game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
-      game_name = game_data["data"].first
-      
-      @clip_post.url = clip_data["url"]
-      @clip_post.thumbnail = clip_data["thumbnail_url"]
-      @clip_post.streamer = clip_data["broadcaster_name"]
-      @clip_post.title = clip_data["title"]
-      @clip_post.clip_created_at = Time.parse(clip_data["created_at"]).strftime("%m/%d %H:%M:%S")
-      @clip_post.views = clip_data["view_count"]
-      @clip_post.content_title = clip_post_params[:content_title]
-      @clip_post.tag_list = [clip_data["broadcaster_name"],game_name["name"],clip_post_params[:tag_list]]
-      @clip_post.embed_url = clip_data["embed_url"]
+      streamer_data = TwitchApi.new.get_streamer_image(clip_data["broadcaster_id"])
+      # データを代入しセーブ
+      @clip_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
+
+      create_image_game(game_data)
+      create_image_streamer(streamer_data, clip_data)
   
       if @clip_post.save
         redirect_to clip_posts_path, success: "投稿したヨ"
@@ -51,6 +43,10 @@ class ClipPostsController < ApplicationController
     # タグでの検索
     @clip_posts = if (tag_name = params[:tag_name])
                     ClipPost.with_tag(tag_name)
+                  elsif (tag_name = params[:tag_game])
+                    ClipPost.with_game(tag_name)
+                  elsif (tag_name = params[:tag_streamer])
+                    ClipPost.with_streamer(tag_name)
                   else
                     ClipPost.all
                   end
@@ -110,32 +106,60 @@ class ClipPostsController < ApplicationController
   end
 
   def get_clip
-    url = params[:url]
-    data = TwitchApi.new.get_clip(url)
+    preview_post = ClipPost.new
+    # TwitchApiからデータを取り出す
+    data = TwitchApi.new.get_clip(clip_post_params[:url])
     clip_data = data["data"].first
-    
     game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
-    game_name = game_data["data"].first
+    streamer_data = TwitchApi.new.get_streamer_image(clip_data["broadcaster_id"])
 
-    preview_post = ClipPost.new(
-      thumbnail: clip_data["thumbnail_url"],
-      streamer: clip_data["broadcaster_name"],
-      title: clip_data["title"],
-      clip_created_at: Time.parse(clip_data["created_at"]).strftime("%m-%d %H:%M:%S"),
-      views: clip_data["view_count"],
-      content_title: params[:content_title],
-      tag_list: [clip_data["broadcaster_name"],game_name["name"],params[:tag_list]],
-      embed_url: clip_data["embed_url"]
-    )
+    # preview_postに全てのデータを代入
+    preview_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
 
    respond_to do |format|
      format.js { render 'get_clip.js.erb', locals: { preview_post: preview_post } }
     end
   end
 
+  def create_image_game(game_data)
+    image = Image.new(name: game_data["data"].first["name"], 
+                      image_url: game_data["data"].first["box_art_url"].sub('{width}', '144').sub('{height}', '192'),
+                      image_id: game_data["data"].first["id"])
+
+    unless Image.find_by(name: image.name)
+      image.save
+    end
+  end
+
+  def create_image_streamer(streamer_data, clip_data)
+    image = Image.new(name: clip_data["broadcaster_name"], 
+                      image_url: streamer_data["data"].first["profile_image_url"],
+                      image_id: streamer_data["data"].first["id"])
+
+    unless Image.find_by(name: image.name)
+      image.save
+    end
+  end
   private
 
   def clip_post_params
-    params.require(:clip_post).permit(:url, :thumbnail, :streamer, :title, :clip_created_at, :views, :content_title, :tag_list)
+    params.require(:clip_post).permit(:url, :thumbnail, :streamer, :title, :clip_created_at, :views, :content_title, :tag_list, :game_list, :streamer_list)
+  end
+
+  def set_clip_post_attribute(clip_data, game_data, streamer_data)
+    {
+    url: clip_data["url"],
+    thumbnail: clip_data["thumbnail_url"],
+    title: clip_data["title"],
+    streamer: clip_data["broadcaster_name"],
+    clip_created_at: Time.parse(clip_data["created_at"]).strftime("%m/%d %H:%M:%S"),
+    views: clip_data["view_count"],
+    content_title: clip_post_params[:content_title],
+    tag_list: clip_post_params[:tag_list],
+    game_list: game_data["data"].first["name"],
+    streamer_list: [clip_post_params[:streamer_list],clip_data["broadcaster_name"]],
+    embed_url: clip_data["embed_url"],
+    streamer_image: streamer_data["data"].first["profile_image_url"]
+  }
   end
 end
