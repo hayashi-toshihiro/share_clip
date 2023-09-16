@@ -6,6 +6,7 @@ class CreateClipPosts < ActiveRecord::Migration[6.1]
       t.string :embed_url
       t.string :thumbnail
       t.string :streamer
+      t.string :streamer_image
       t.string :title
       t.string :clip_created_at
       t.integer :views

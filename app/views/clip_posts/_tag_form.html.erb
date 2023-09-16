@@ -1,4 +1,18 @@
 <div class="d-flex flex-wrap">
+  <% clip_post.streamer_list.each do |tag| %>
+    <div class="flex-item ms-3">
+      <%= link_to clip_posts_path(tag_name: tag), class: "no-decoration" do %>
+        <p class="tag_wrapper"><%= tag %></p>
+      <% end %>
+    </div>
+  <% end %>
+  <% clip_post.game_list.each do |tag| %>
+    <div class="flex-item ms-3">
+      <%= link_to clip_posts_path(tag_name: tag), class: "no-decoration" do %>
+        <p class="tag_wrapper"><%= tag %></p>
+      <% end %>
+    </div>
+  <% end %>
   <% clip_post.tag_list.each do |tag| %>
     <div class="flex-item ms-3">
       <%= link_to clip_posts_path(tag_name: tag), class: "no-decoration" do %>

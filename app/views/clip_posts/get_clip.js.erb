@@ -1,2 +1,4 @@
 $('#preview_form').html('<%= j render 'preview_form.html.erb', preview_post: preview_post %>');
+$("#game_list").val("<%= preview_post.game_list %>");
+$("#streamer_list").val("<%= preview_post.streamer_list %>");
 $("#tag_list").val("<%= preview_post.tag_list %>");

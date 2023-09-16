@@ -3,7 +3,10 @@
   <!-- メイン画面 -->
   <div class="container border-dark border-1 border">
     <div class="row mb-3 bg-white">
-      <div class="col h3 ms-3"><%= @clip_post.streamer %></div>
+      <div class="col h3 ms-3">
+        <%= image_tag @clip_post.streamer_image, class: "rounded-circle me-2", size: "50x50" %>
+        <%= @clip_post.streamer %>
+      </div>
       <div class="col d-flex justify-content-end align-items-end small">
         <div class="border-bottom border-dark"><%= @clip_post.clip_created_at %></div>
       </div>

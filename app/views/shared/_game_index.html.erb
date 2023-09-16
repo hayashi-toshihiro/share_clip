@@ -1,0 +1,15 @@
+<div class="text-center mt-3">
+  <h5 class="tag-list-title">ゲームで見つける</h5>
+</div>
+<div class="d-flex flex-wrap justify-content-around">
+  <% ClipPost.tags_on(:games).order(name: :asc).each do |tag| %>
+    <div class="flex-item m-2 mt-3">
+      <%= link_to clip_posts_path(tag_game: tag.name), class: "no-decoration" do %>
+        <% image_record = Image.find_by(name: tag.name) %>
+          <% if image_record && image_record.image_url.present? %>
+            <%= image_tag image_record.image_url, size: "144x192" %>
+          <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
