@@ -11,15 +11,13 @@ class ClipPost < ApplicationRecord
   scope :created_at, -> { order(created_at: :desc) }
   scope :most_views, -> { order(views: :desc) }
 
-  scope :with_tag, ->(tag_name) { joins(:tags).where(tags: {name: tag_name}) }
-  scope :with_game, ->(tag_name) { joins(:games).where(tags: {name: tag_name}) }
-  scope :with_streamer, ->(tag_name) { joins(:streamers).where(tags: {name: tag_name}) }
+  scope :with_tag, ->(tag_name) { joins(:tags).where(tags: { name: tag_name }) }
+  scope :with_game, ->(tag_name) { joins(:games).where(tags: { name: tag_name }) }
+  scope :with_streamer, ->(tag_name) { joins(:streamers).where(tags: { name: tag_name }) }
 
+  validates :url, format: { with: /twitch\.tv/, message: I18n.t('models.clip_post.url_invalid_format') }
 
-
-  validates :url, format: { with: /twitch\.tv/, message: "は正しい形式ではありません" }
-  
   def liked_by?(user)
-    likes.where(user_id: user.id).exists?
+    likes.exists?(user_id: user.id)
   end
 end

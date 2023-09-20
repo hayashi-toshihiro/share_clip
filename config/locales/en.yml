@@ -30,4 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  contacts:
+    flash:
+      danger: "要望を入力してください"
+
+  contact_mailer:
+    subject: "お問い合わせメール"
+
+  models:
+    clip_post:
+      url_invalid_format: "は正しい形式ではありません"

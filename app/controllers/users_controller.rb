@@ -23,12 +23,12 @@ class UsersController < ApplicationController
 
     template = "https://static-cdn.jtvnw.net/emoticons/v2/{{id}}/{{format}}/{{theme_mode}}/{{scale}}"
     data = {
-      "id": random_stamp["id"],
-      "format": random_stamp["format"].sample,
-      "theme_mode": random_stamp["theme_mode"].sample,
-      "scale": "3.0"
+      id: random_stamp["id"],
+      format: random_stamp["format"].sample,
+      theme_mode: random_stamp["theme_mode"].sample,
+      scale: "3.0"
     }
-    
+
     url = template.gsub("{{id}}", data[:id])
                   .gsub("{{format}}", data[:format])
                   .gsub("{{theme_mode}}", data[:theme_mode])
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render 'get_user_stamp.js.erb', locals: { stamp_url: url } }
-     end
+    end
   end
 
   private
