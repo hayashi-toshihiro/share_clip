@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2023_09_15_044557) do
     t.string "name", null: false
     t.string "image_url", null: false
     t.string "image_id"
+    t.string "image_color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_images_on_name", unique: true

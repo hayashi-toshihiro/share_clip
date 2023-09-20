@@ -3,14 +3,21 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
 @import url('https://fonts.googleapis.com/css?family=Kosugi');
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 .tag_wrapper {
-    background: #7fffd4; /*背景色*/
+    background: #b4ffe1; /*背景色*/
     padding: 3px 10px;/*文字周りの余白*/
     color: darkblue;/*文字を白に*/
     border-radius: 125px;/*角の丸み*/
     position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
   }
+
+.tag_wrapper:hover {
+  background-color: #7fffd4;
+  box-shadow: inset 0.1em 0.1em 0.1em rgba(244, 255, 243, 0.7), 0.1em 0.1em 0.1em rgba(244, 255, 243, 0.7);
+}
 
 .text-muted-link {
   color: #6c757d;
@@ -24,13 +31,25 @@
   text-decoration: none;
 }
 
+.next {
+  display: none;
+}
+
+.prev {
+  display: none;
+}
+
+h2.font-round {
+  font-family: "Arial", "sans-serif";
+  font-weight: bolder;
+}
+
 .font-round {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #b003c0;
+  font-family: "Arial", "sans-serif";
 }
 
 .font-title {
-  font-family: 'Kosugi', sans-serif;
+  font-family: 'Roboto', Arial;
 }
 
 .background-color-lightblue {
@@ -67,9 +86,8 @@
   font-size: inherit;
   background: white;
   padding: 0.3rem 0.1rem;
-  border: 1px solid black;
   margin-right: 2.6rem;
-  box-shadow: 0 0 0 black;
+  box-shadow: #bf94ff;
   transition: all 0.2s;
 }
 
@@ -78,11 +96,129 @@
 }
 
 .shadow-btn:hover {
-  box-shadow: 0.4rem 0.4rem 0 black;
+  box-shadow: 0.4rem 0.4rem 0 #bf94ff;
   transform: translate(-0.4rem, -0.4rem);
 }
 
 .shadow-btn:active {
   box-shadow: 0 0 0 black;
   transform: translate(0, 0);
+}
+
+.fuller-button {
+	color: rgba(0, 0, 0, 0.5);
+	background: white;
+	border-radius: 10px;
+	padding: 0.8em 0em;
+	letter-spacing: 0.35em;
+	font-size: 1em;
+	transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+	margin: 0;
+	
+	&.purple {
+		border: #a2a2a2 solid 0px;
+    font-family: 'Roboto', Arial;
+    font-weight: bolder;
+	}
+	
+	&.purple:hover {
+		background-color: #f7f2ff;
+		box-shadow: inset 0.1em 0.1em 0.1em rgba(233, 218, 255, 0.7), 0.1em 0.1em 0.1em rgba(233, 218, 255, 0.7);
+	}
+}
+
+.buttonOutline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100px;
+  height: 30px;
+  padding: 8px 10px;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #1c1c1c;;
+  text-align: center;
+  overflow-wrap: anywhere;
+  background-color: transparent;
+  border: 0px solid #c1c1c1;
+}
+
+.buttonOutline:hover {
+  transition: background-color 0.8s;
+  background-color: #c1fff8;
+}
+
+.simple-button {
+  color: black;
+}
+
+.simple-button:hover {
+  transition: background-color 0.5s;
+  background-color: white;
+}
+
+.simple-button-purple {
+  transition: color 0.5s;
+  color: gray;
+}
+
+.simple-button-purple:hover {
+  transition: color 0.5s;
+  color: #bf94ff;
+}
+
+@font-face {
+  font-family: 'azuki';
+  src: font-url('/assets/azuki.ttf');
+}
+
+@font-face {
+  font-family: 'Corporate-Logo-Rounded-Bold';
+  src: font-url('/assets/Corporate-Logo-Rounded-Bold.otf');
+}
+
+@font-face {
+  font-family: 'toroman';
+  src: font-url('/assets/toroman.ttf');
+}
+
+@font-face {
+  font-family: 'GenEiNuGothic-EB';
+  src: font-url('/assets/GenEiNuGothic-EB.ttf');
+}
+
+@font-face {
+  font-family: 'GenEiAntiquePv5-M';
+  src: font-url('/assets/GenEiAntiquePv5-M.ttf');
+}
+
+@font-face {
+  font-family: 'nicoca_v2';
+  src: font-url('/assets/nicoca_v2.ttf');
+}
+
+.font-1 {
+  font-family: 'kssweetheavycalligraphy';
+}
+
+.font-2 {
+  font-family: 'azuki';
+}
+
+.font-3 {
+  font-family: 'toroman';
+}
+
+.font-4 {
+  font-family: 'GenEiNuGothic-EB';
+}
+
+.font-5 {
+  font-family: 'GenEiAntiquePv5-M';
+}
+
+.font-6 {
+  font-family: 'nicoca_v2';
 }

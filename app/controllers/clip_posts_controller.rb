@@ -23,11 +23,12 @@ class ClipPostsController < ApplicationController
       clip_data = data["data"].first
       game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
       streamer_data = TwitchApi.new.get_streamer_image(clip_data["broadcaster_id"])
+      streamer_color_data = TwitchApi.new.get_streamer_color(clip_data["broadcaster_id"])
       # データを代入しセーブ
       @clip_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
 
       create_image_game(game_data)
-      create_image_streamer(streamer_data, clip_data)
+      create_image_streamer(streamer_data, clip_data, streamer_color_data)
   
       if @clip_post.save
         redirect_to clip_posts_path, success: "投稿したヨ"
@@ -42,13 +43,13 @@ class ClipPostsController < ApplicationController
   def index
     # タグでの検索
     @clip_posts = if (tag_name = params[:tag_name])
-                    ClipPost.with_tag(tag_name)
+                    ClipPost.with_tag(tag_name).page(params[:page]).per(10).without_count
                   elsif (tag_name = params[:tag_game])
-                    ClipPost.with_game(tag_name)
+                    ClipPost.with_game(tag_name).page(params[:page]).per(10).without_count
                   elsif (tag_name = params[:tag_streamer])
-                    ClipPost.with_streamer(tag_name)
+                    ClipPost.with_streamer(tag_name).page(params[:page]).per(10).without_count
                   else
-                    ClipPost.all
+                    ClipPost.all.page(params[:page]).per(10).without_count
                   end
 
     # 投稿の並び替え
@@ -95,13 +96,13 @@ class ClipPostsController < ApplicationController
 
   def likes
     if params[:clip_created_at]
-      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).clip_created_at
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.clip_created_at
     elsif params[:most_views]
-      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).most_views
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.most_views
     elsif params[:created_at]
-      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).created_at
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.created_at
     else
-      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).order(created_at: :desc)
+      @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.order(created_at: :desc)
     end
   end
 
@@ -112,10 +113,8 @@ class ClipPostsController < ApplicationController
     clip_data = data["data"].first
     game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
     streamer_data = TwitchApi.new.get_streamer_image(clip_data["broadcaster_id"])
-
     # preview_postに全てのデータを代入
     preview_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
-
    respond_to do |format|
      format.js { render 'get_clip.js.erb', locals: { preview_post: preview_post } }
     end
@@ -131,10 +130,11 @@ class ClipPostsController < ApplicationController
     end
   end
 
-  def create_image_streamer(streamer_data, clip_data)
+  def create_image_streamer(streamer_data, clip_data, streamer_color_data)
     image = Image.new(name: clip_data["broadcaster_name"], 
                       image_url: streamer_data["data"].first["profile_image_url"],
-                      image_id: streamer_data["data"].first["id"])
+                      image_id: streamer_data["data"].first["id"],
+                      image_color: streamer_color_data["data"].first["color"])
 
     unless Image.find_by(name: image.name)
       image.save
@@ -152,7 +152,7 @@ class ClipPostsController < ApplicationController
     thumbnail: clip_data["thumbnail_url"],
     title: clip_data["title"],
     streamer: clip_data["broadcaster_name"],
-    clip_created_at: Time.parse(clip_data["created_at"]).strftime("%m/%d %H:%M:%S"),
+    clip_created_at: Time.parse(clip_data["created_at"]),
     views: clip_data["view_count"],
     content_title: clip_post_params[:content_title],
     tag_list: clip_post_params[:tag_list],

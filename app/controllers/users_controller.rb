@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to login_path, success: '登録ありがとネ'
+      auto_login(@user)
+      redirect_to clip_posts_path, success: '登録ありがとネ'
     else
       flash.now[:danger] = '登録失敗しちゃったヨ'
       render :new

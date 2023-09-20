@@ -4,6 +4,7 @@ class CreateImages < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.string :image_url, null: false
       t.string :image_id
+      t.string :image_color
 
       t.timestamps
     end

@@ -1,9 +1,9 @@
 <div class="text-center mt-3">
   <h5 class="tag-list-title">ランダムユーザーアイコン</h5>
 </div>
-<div class="d-flex flex-wrap flex-column">
+<div class="overflow-auto" style="height: 300px">
   <% ClipPost.tags_on(:streamers).order(name: :asc).each do |tag| %>
-    <div class="flex-item ms-1 mt-3 bg-white">
+    <div class="ms-1 mt-3 bg-white">
       <%= link_to get_user_stamp_path(streamer_name: tag.name), class: "no-decoration row shadow-btn", remote: true do %>
         <div class="col-3">
         <% image_record = Image.find_by(name: tag.name) %>
@@ -13,7 +13,7 @@
             <%= image_tag "default.png", class: "rounded_circle", size: "50x50" %>
           <% end %>
         </div>
-        <div class="col-9 h2 text-dark">
+        <div class="col-9 h2" style="color: <%= image_record.image_color %>;">
           <%= tag %>
         </div>
       <% end %>
