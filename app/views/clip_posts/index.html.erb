@@ -1,13 +1,17 @@
 <%= render 'shared/title_bar', title: "投稿一覧" %>
 <div class="bg-light">
-<div class="container d-flex justify-content-end background-color-lightred">
-  <%= link_to '時系列順', clip_posts_path(clip_created_at: "true"), class: "ms-3" %>
-  <%= link_to '再生数順', clip_posts_path(most_views: "true"), class: "ms-3" %>
-  <%= link_to '投稿順', clip_posts_path(created_at: "true"), class: "ms-3" %>
-</div>
-<% @clip_posts.each do |clip_post| %>
-  <div class="container mb-1 background-color-lightred">
-    <%= render 'form.html.erb', clip_post: clip_post %>
+  <div class="container d-flex justify-content-end background-color-lightred m-1">
+    <%= link_to '時系列順', clip_posts_path(clip_created_at: "true"), class: "ms-3 buttonOutline font-2" %>
+    <%= link_to '再生数順', clip_posts_path(most_views: "true"), class: "ms-3 buttonOutline font-2" %>
+    <%= link_to '投稿順', clip_posts_path(created_at: "true"), class: "ms-3 buttonOutline font-2" %>
   </div>
-<% end %>
+  <div class="scroll-list jscroll">
+    <% @clip_posts.each do |clip_post| %>
+      <div class="container mb-1 background-color-lightred">
+        <%= render 'form.html.erb', clip_post: clip_post %>
+      </div>
+    <% end %>
+    <%= link_to_prev_page @clip_posts, '前のページ', class: "prev" %>
+    <%= link_to_next_page @clip_posts, '次のページ', class: "next" %>
+  </div>
 </div>

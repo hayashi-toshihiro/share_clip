@@ -2,9 +2,11 @@
   <div class="row">
     <div class="d-inline-flex bg-light justify-content-between nav">
       <%= link_to test_path do %>
-        <%= image_tag current_user.stamp_url, class: "border border-1 border-danger" %>
+        <%= image_tag current_user.stamp_url, class: "border border-1 border-danger",size: "144x144" %>
       <% end %>
-      <%= link_to "ログアウト", logout_path, data: { method: "delete" }, class: "nav-link" %>
+      <div>
+        <%= link_to "ログアウト", logout_path, data: { method: "delete" }, class: "nav-link simple-button" %>
+      </div>
     </div>
     <div class="row bg-light mt-3 ms-1">
       <%= render 'shared/game_index' %>

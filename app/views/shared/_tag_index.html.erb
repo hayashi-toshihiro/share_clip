@@ -1,20 +1,23 @@
 <div class="text-center mt-3">
   <h5 class="tag-list-title">配信者で見つける</h5>
 </div>
+<% tag_names = ClipPost.tags_on(:streamers).pluck(:name) %>
+<% image_records = Image.where(name: tag_names).index_by(&:name) %>
+
 <div class="d-flex flex-wrap flex-column">
   <% ClipPost.tags_on(:streamers).order(name: :asc).each do |tag| %>
+    <% image_record = image_records[tag.name] %>
     <div class="flex-item ms-1 mt-3 bg-white">
       <%= link_to clip_posts_path(tag_streamer: tag.name), class: "no-decoration row shadow-btn" do %>
         <div class="col-3">
-        <% image_record = Image.find_by(name: tag.name) %>
           <% if image_record && image_record.image_url.present? %>
             <%= image_tag image_record.image_url, class: "rounded-circle", size: "50x50" %>
           <% else %>
             <%= image_tag "default.png", class: "rounded_circle", size: "50x50" %>
           <% end %>
         </div>
-        <div class="col-9 h2 text-dark">
-          <%= tag %>
+        <div class="col-9 h2 font-5" style="color: <%= image_record.image_color %>;">
+          <%= tag.name %>
         </div>
       <% end %>
     </div>

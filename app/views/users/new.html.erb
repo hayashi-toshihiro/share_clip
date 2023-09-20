@@ -1,5 +1,5 @@
-<%= render 'shared/title_bar', title: "新規投稿" %>
-<div class="container bg-light p-3 vh-100">
+<%= render 'shared/title_bar', title: "新規登録" %>
+<div class="container bg-light p-3">
   <%= form_with(model: @user, local: true) do |form| %>
     <div class="mb-3">
       <%= form.label :email, "メールアドレス", class: "form-label float-start" %>
@@ -14,7 +14,7 @@
       <%= form.password_field :password_confirmation, class: "form-control", id: "exampleInputPassword1" %>
     </div>
     <div class="mb-3">
-      <%= form.hidden_field :stamp_url, id: "stamp_url" %>
+      <%= form.hidden_field :stamp_url, id: "stamp_url", value: "default.png" %>
       <%= image_tag "default.png", id: "stamp_image_tag", size: "112x112" %>
     </div>
     <div class="mb-3">
