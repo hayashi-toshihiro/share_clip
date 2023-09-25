@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
         if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
               $('.jscroll').jscroll({
                 contentSelector: '.scroll-list',
-                nextSelector: 'a.next',
+                nextSelector: 'span.next:last a',
                 loadingHtml: '読み込み中'
               });
         }
