@@ -12,7 +12,6 @@
         <%= render 'form.html.erb', clip_post: clip_post %>
       </div>
     <% end %>
-    <%= link_to_prev_page @clip_posts, '前のページ', class: "prev" %>
-    <%= link_to_next_page @clip_posts, '次のページ', class: "next" %>
+    <%= paginate @clip_posts %>
   </div>
 </div>

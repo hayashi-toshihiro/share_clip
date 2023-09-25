@@ -4,13 +4,13 @@ class ClipPostsController < ApplicationController
   def index
     # タグでの検索
     @clip_posts = if (tag_name = params[:tag_name])
-                    ClipPost.with_tag(tag_name).page(params[:page]).per(10).without_count
+                    ClipPost.with_tag(tag_name).page(params[:page]).per(10)
                   elsif (tag_name = params[:tag_game])
-                    ClipPost.with_game(tag_name).page(params[:page]).per(10).without_count
+                    ClipPost.with_game(tag_name).page(params[:page]).per(10)
                   elsif (tag_name = params[:tag_streamer])
-                    ClipPost.with_streamer(tag_name).page(params[:page]).per(10).without_count
+                    ClipPost.with_streamer(tag_name).page(params[:page]).per(10)
                   else
-                    ClipPost.all.page(params[:page]).per(10).without_count
+                    ClipPost.all.page(params[:page]).per(10)
                   end
 
     # 投稿の並び替え
