@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: "clip_posts#index"
   get 'test', to: 'test#new'
   get 'clip_posts/get_clip', to: 'clip_posts#get_clip'
   get 'get_user_stamp', to: 'users#get_user_stamp'
