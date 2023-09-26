@@ -218,3 +218,12 @@ h2.font-round {
 .font-6 {
   font-family: 'nicoca_v2';
 }
+
+.scroll{
+  height: 95vh;
+  overflow: auto;
+}
+
+.scroll::-webkit-scrollbar{
+  display:none;
+}
