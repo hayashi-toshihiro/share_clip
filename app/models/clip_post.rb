@@ -15,7 +15,8 @@ class ClipPost < ApplicationRecord
   scope :with_game, ->(tag_name) { joins(:games).where(tags: { name: tag_name }) }
   scope :with_streamer, ->(tag_name) { joins(:streamers).where(tags: { name: tag_name }) }
 
-  validates :url, format: { with: /\A.*clip.*twitch\.tv.*\z/, message: I18n.t('models.clip_post.url_invalid_format') }
+  validates :url, format: { with: /clip/, message: "クリップを貼ってネ"}
+  validates :url, format: { with: /twitch\.tv/, message: I18n.t('models.clip_post.url_invalid_format') }
 
   def liked_by?(user)
     likes.exists?(user_id: user.id)

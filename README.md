@@ -15,6 +15,18 @@ Twitchにはクリップという配信の見どころを切り取る便利機�
 また、twitchのクリップ機能ではコメント等の反応ができないため、
 このサイトでリアクションができ、クリップの共有が楽しくなるようにしていきたいと考えています。
 
+### twitchについて
+twichとは主にゲーム実況やライブストリーミングを行うプラットフォームです。
+配信者がゲームをプレしたり雑談をしながら、視聴者のコメントを通じてリアルタイムでコミュニケーションを取ることが特徴です。
+### twitchクリップとは？
+Twitchクリップは、Twitchでのライブ配信中に配信の一部を切り取って短い動画を作成する機能です。
+視聴者は面白い瞬間や盛り上がった瞬間などをクリップすることができ、これらのクリップは後から再生や共有が可能です。
+例：クリップurl: 
+https://www.twitch.tv/fps_shaka/clip/WiseRelatedFishRuleFive-dRUYdZpxGU5_VcTV?featured=false&filter=clips&range=7d&sort=time
+例：クリップの見つけ方
+https://i.gyazo.com/4ef61580d96fd1c837fa1ae2eb5c7ad2.mp4
+https://i.gyazo.com/f675e8af99a467c5aaa892c7f6753808.mp4
+
 ## 実装を予定している機能
 ### MVP
 * 会員登録
