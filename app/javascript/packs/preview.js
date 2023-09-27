@@ -3,10 +3,18 @@ $(document).on('turbolinks:load', function() {
 
     var url = $("#clip_url").val();
 
-    var urlRegex = /\A.*clip.*twitch\.tv.*\z/;
+    var urlRegex = /twitch\.tv/;
+    var urlRegex2 = /clip/;
 
     if (!url.match(urlRegex)) {
       var errorMessage = "クリップが見つからないヨ";
+      var flashMessage = $("<div class='alert alert-danger font-6'>" + errorMessage + "</div>");
+      $("#flash_messages").html(flashMessage); 
+      return false;
+    }
+
+    if (!url.match(urlRegex2)) {
+      var errorMessage = "クリップを貼ってネ";
       var flashMessage = $("<div class='alert alert-danger font-6'>" + errorMessage + "</div>");
       $("#flash_messages").html(flashMessage); 
       return false;
