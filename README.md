@@ -23,6 +23,9 @@ Twitchクリップは、Twitchでのライブ配信中に配信の一部を切�
 視聴者は面白い瞬間や盛り上がった瞬間などをクリップすることができ、これらのクリップは後から再生や共有が可能です。
 例：クリップurl: 
 https://www.twitch.tv/fps_shaka/clip/WiseRelatedFishRuleFive-dRUYdZpxGU5_VcTV?featured=false&filter=clips&range=7d&sort=time
+例：クリップの見つけ方
+https://i.gyazo.com/4ef61580d96fd1c837fa1ae2eb5c7ad2.mp4
+https://i.gyazo.com/f675e8af99a467c5aaa892c7f6753808.mp4
 
 ## 実装を予定している機能
 ### MVP
