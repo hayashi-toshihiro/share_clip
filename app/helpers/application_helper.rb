@@ -9,8 +9,8 @@ module ApplicationHelper
     keywords: 'ページキーワード',   #キーワードを「,」区切りで設定する
     noindex: ! Rails.env.production?,
     icon: [                    #favicon、apple用アイコンを指定する
-      { href: image_url('hasami.jpg') },
-      { href: image_url('hasami.jpg'), rel: 'apple-touch-icon', sizes: '180x180', type: 'image/jpg' },
+      { href: image_url('hasami-icon.ico') },
+      { href: image_url('hasami-icon.ico'), rel: 'apple-touch-icon', sizes: '180x180', type: 'image/jpg' },
     ],
     og: {
       site_name: 'twitchクリップ共有',
