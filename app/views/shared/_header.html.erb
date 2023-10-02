@@ -1,0 +1,19 @@
+<div class="fixed-top bg-dark d-flex">
+  <div class="col-3">
+  </div>
+  <div class="col-6 d-flex justify-content-center align-items-center">
+    <%= link_to clip_posts_path, class: "text-center font-title text-info font-3 no-decoration" do %>
+      <h3>Clip Reactor</h3>
+    <% end %>
+  </div>
+  <div class="col-3 d-flex justify-content-end">
+    <button id="dropdownMenuDark" data-bs-toggle="dropdown" aria-expanded="false" class="bg-dark p-0" >
+      <%= image_tag current_user.stamp_url, class: "border border-1 border-danger float-end", size: "40x40" %>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuDark">
+      <li>
+        <%= link_to "ログアウト", logout_path, data: { method: "delete" }, class: "nav-link simple-button text-white" %>
+      </li>
+  </ul>
+  </div>
+</div>

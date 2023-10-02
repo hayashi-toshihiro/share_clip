@@ -15,17 +15,21 @@
   </head>
 
   <body>
-    <div class="row vh-100">
+  <div class="container-fluid">
+    <div class="row">
       <%= render 'shared/compact_left_sidebar' %>
-      <div class="col-10">
+      <div class="col-10 full-width">
         <%= yield %>
       </div>
       <% if logged_in? %>
-      <%= render 'shared/compact_right_sidebar' %>
+        <%= render 'shared/compact_right_sidebar' %>
       <% else %>
-      <%= render 'shared/compact_before_login_right_sidebar' %>
+        <%= render 'shared/compact_before_login_right_sidebar' %>
       <% end %>
     </div>
-    <%= render 'shared/footer' %>
+    </div>
+    <footer class="hidden-big-screen">
+      <%= render 'shared/footer2' %>
+    </fotter>
   </body>
 </html>
