@@ -1,10 +1,12 @@
-<div class="col-1 justify-content-end d-flex">
-  <div class="d-flex flex-column mt-3 me-4">
-    <!-- 編集リンク -->
-    <div class="flex-item mb-3">
-    <%= link_to logout_path, method: :delete do %>
-      <i class="fa-solid fa-arrow-right-from-bracket fa-4x simple-button-purple"></i>
-    <% end %>
+<div class="col-1 hidden-small-screen">
+  <div class="justify-content-center d-flex">
+    <div class="d-flex flex-column mt-3">
+      <!-- 編集リンク -->
+      <div class="flex-item mb-3">
+      <%= link_to logout_path, method: :delete do %>
+        <i class="fa-solid fa-arrow-right-from-bracket fa-4x simple-button-purple"></i>
+      <% end %>
+      </div>
     </div>
   </div>
 </div>

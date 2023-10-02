@@ -5,9 +5,14 @@
 @import url('https://fonts.googleapis.com/css?family=Kosugi');
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
+.mbs-2 {
+  margin-bottom: 0.5rem;
+}
+
 .tag_wrapper {
     background: #b4ffe1; /*背景色*/
-    padding: 3px 10px;/*文字周りの余白*/
+    padding: 0.2rem 0.5rem;/*文字周りの余白*/
+    margin: 0.2rem 0.3rem;
     color: darkblue;/*文字を白に*/
     border-radius: 125px;/*角の丸み*/
     position: relative;
@@ -105,7 +110,7 @@ h2.font-round {
 	color: rgba(0, 0, 0, 0.5);
 	background: white;
 	border-radius: 10px;
-	padding: 0.8em 0em;
+	padding: 0.8em 0.8em;
 	letter-spacing: 0.35em;
 	font-size: 1em;
 	transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
@@ -219,6 +224,10 @@ h2.font-round {
   font-family: 'nicoca_v2';
 }
 
+.font-size-1{
+  font-size: 0.55rem;
+}
+
 .scroll{
   height: 95vh;
   overflow: auto;
@@ -226,4 +235,113 @@ h2.font-round {
 
 .scroll::-webkit-scrollbar{
   display:none;
+}
+
+.tag-title-acordion-button {
+  color: #505050;/*文字色*/
+  line-height: 0.8;/*行高*/
+  background: #dbebf8;/*背景色*/
+  vertical-align: middle;
+  border-radius: 25px 0px 0px 25px;/*左側の角を丸く*/
+  border: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  text-align: left;
+  overflow-anchor: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+}
+
+.tag-title-acordion-button:before {
+  content: '●';
+  color: white;
+  margin-right: 8px;
+}
+
+.tag-title-acordion-button::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  content: "";
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.tag-title-acordion-button:hover {
+  z-index: 2;
+}
+.tag-title-acordion-button:focus {
+  z-index: 3;
+  border-color: #86b7fe;
+  outline: 0;
+}
+.tag-title-acordion-button:not(.collapsed) {
+  color: #0c63e4;
+  background-color: #e7f1ff;
+}
+.tag-title-acordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230c63e4'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  transform: rotate(-180deg);
+}
+
+@media screen and (min-width:1025px) {
+  .hidden-big-screen{
+    display: none;
+  }
+} 
+
+@media screen and (max-width:1024px) {
+  /*スマホ用のcssを記述*/
+  .mbs-2{
+    margin-bottom: 0.1rem;
+  }
+  .font-size-small {
+    font-size: 0.75rem;
+  }
+
+  .button-font-size {
+    font-size: 5px;
+  }
+
+  .hidden-small-screen{
+    display: none;
+  }
+
+  .col-6.full-width {
+    width: 100%;
+    padding: 0;
+    padding-top: 44px;
+  }
+
+  .col-10.full-width {
+    width: 100%;
+    padding: 0;
+  }
+
+  .fuller-button {
+    color: #bf94ff;
+    background: none;
+    border-radius: 10px;
+    padding: 0.5em 0.7em;
+    letter-spacing: 0.35em;
+    font-size: 1em;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+    margin: 0;
+  }
+
+  .full-width-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border: none;
+    margin: 0 calc(50% - 50vw);
+    width: 100vw;
+  }
 }

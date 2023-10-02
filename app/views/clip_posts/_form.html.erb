@@ -1,34 +1,34 @@
 <div class="container border-dark border-1 border">
-  <div class="row d-flex mt-3 mb-3 bg-white">
-      <div class="col-auto">
-        <%= image_tag clip_post.streamer_image, class: "rounded-circle me-2", size: "50x50" %>
-      </div>
-      <h2 class="col-auto font-5">
-        <%= clip_post.streamer %>
-      </h2>
-    <div class="col d-flex justify-content-end align-items-end small">
-      <div class="border-bottom border-dark text-muted"><%= Time.parse(clip_post.clip_created_at).strftime("%m/%d %H:%M:%S") %></div>
+  <div class="row d-flex mt-2 mbs-2 bg-white">
+    <div class="col-auto">
+      <%= image_tag clip_post.streamer_image, class: "rounded-circle me-2", size: "50x50" %>
+    </div>
+    <h2 class="col-auto font-5">
+      <%= clip_post.streamer %>
+    </h2>
+    <div class="col d-flex justify-content-end align-items-end">
+      <div class="border-bottom border-dark text-muted font-size-1"><%= Time.parse(clip_post.clip_created_at).strftime("%m/%d %H:%M:%S") %></div>
     </div>
   </div>
-  <div class="row mb-3 bg-white">
-    <div class="text-center m-2 font-5"><%= clip_post.title %></div>
-    <div class="d-flex justify-content-center mb-2">
+  <div class="row mbs-2 bg-white">
+    <div class="text-center font-5 font-size-small"><%= clip_post.title %></div>
+    <div class="d-flex justify-content-center mbs-2">
     <%= link_to clip_post_path(clip_post) do %>
       <div class="shadow-btn" style="--bs-aspect-ratio: 56.25%;">
         <%= image_tag clip_post.thumbnail, style: "max-width: 100%" %>
       </div>
     <% end %>
     </div>
-    <div class="mb-3">
+    <div class="mbs-2">
       <%= render 'tag_form.html.erb', clip_post: clip_post %>
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mbs-2">
       <div class="row<%= clip_post.content_title.blank? ? '' : ' form-control border bg-white' %>" style="width: 98%">
         <%= clip_post.content_title.presence || '' %>
       </div>
     </div>
   </div>
-  <div class="row mb-3 bg-white ps-3 pe-3">
+  <div class="row mbs-2 bg-white ps-3 pe-3">
     <%= render 'crud_menus', clip_post: clip_post %>
   </div>
 </div>

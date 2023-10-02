@@ -1,14 +1,16 @@
 <% set_meta_tags title: "" %>
 <%= render 'shared/title_bar', title: "投稿一覧" %>
 <div class="bg-light">
-  <div class="container d-flex justify-content-end background-color-lightred m-1">
-    <%= link_to '時系列順', clip_posts_path(clip_created_at: "true"), class: "ms-3 buttonOutline font-2" %>
-    <%= link_to '再生数順', clip_posts_path(most_views: "true"), class: "ms-3 buttonOutline font-2" %>
-    <%= link_to '投稿順', clip_posts_path(created_at: "true"), class: "ms-3 buttonOutline font-2" %>
+  <div class="background-color-lightred">
+    <div class="container d-flex justify-content-end my-1">
+      <%= link_to '時系列順', clip_posts_path(clip_created_at: "true"), class: "buttonOutline font-2" %>
+      <%= link_to '再生数順', clip_posts_path(most_views: "true"), class: "buttonOutline font-2" %>
+      <%= link_to '投稿順', clip_posts_path(created_at: "true"), class: "buttonOutline font-2" %>
+    </div>
   </div>
   <div class="scroll-list jscroll">
     <% @clip_posts.each do |clip_post| %>
-      <div class="container mb-1 background-color-lightred">
+      <div class="mb-1 background-color-lightred">
         <%= render 'form.html.erb', clip_post: clip_post %>
       </div>
     <% end %>

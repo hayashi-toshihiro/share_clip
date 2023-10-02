@@ -15,9 +15,17 @@
   </head>
 
   <body>
+  <header class="hidden-big-screen">
+  <% if logged_in? %>
+    <%= render 'shared/header' %>
+  <% else %>
+    <%= render 'shared/before_login_header' %>
+  <% end %>
+  </header>
+  <div class="container-fluid">
     <div class="row mb-24">
       <%= render 'shared/left_sidebar' %>
-      <div class="col-6">
+      <div class="col-6 full-width">
         <%= yield %>
       </div>
       <% if logged_in? %>
@@ -26,8 +34,9 @@
         <%= render 'shared/before_login_right_sidebar' %>
       <% end %>
     </div>
-    <footer>
-    <%= render 'shared/footer' %>
+    </div>
+    <footer class="hidden-big-screen">
+    <%= render 'shared/footer2' %>
     </fotter>
   </body>
 </html>
