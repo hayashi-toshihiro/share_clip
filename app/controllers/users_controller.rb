@@ -21,18 +21,16 @@ class UsersController < ApplicationController
     stamp_data = TwitchApi.new.get_stamp(stamp_id)
     random_stamp = stamp_data["data"].sample
 
-    template = "https://static-cdn.jtvnw.net/emoticons/v2/{{id}}/{{format}}/{{theme_mode}}/{{scale}}"
+    template = "https://static-cdn.jtvnw.net/emoticons/v2/{id}/{format}/{theme_mode}/3.0"
     data = {
       id: random_stamp["id"],
       format: random_stamp["format"].sample,
-      theme_mode: random_stamp["theme_mode"].sample,
-      scale: "3.0"
+      theme_mode: random_stamp["theme_mode"].sample
     }
 
-    url = template.gsub("{{id}}", data[:id])
-                  .gsub("{{format}}", data[:format])
-                  .gsub("{{theme_mode}}", data[:theme_mode])
-                  .gsub("{{scale}}", data[:scale])
+    url = template.gsub("{id}", data[:id])
+                  .gsub("{format}", data[:format])
+                  .gsub("{theme_mode}", data[:theme_mode])
 
     respond_to do |format|
       format.js { render 'get_user_stamp.js.erb', locals: { stamp_url: url } }

@@ -2,27 +2,10 @@ class ClipPostsController < ApplicationController
   skip_before_action :require_login, only: %i[index show get_clip]
 
   def index
-    # タグでの検索
-    @clip_posts = if (tag_name = params[:tag_name])
-                    ClipPost.with_tag(tag_name).page(params[:page]).per(10)
-                  elsif (tag_name = params[:tag_game])
-                    ClipPost.with_game(tag_name).page(params[:page]).per(10)
-                  elsif (tag_name = params[:tag_streamer])
-                    ClipPost.with_streamer(tag_name).page(params[:page]).per(10)
-                  else
-                    ClipPost.all.page(params[:page]).per(10)
-                  end
-
-    # 投稿の並び替え
-    @clip_posts = if params[:clip_created_at]
-                    @clip_posts.clip_created_at
-                  elsif params[:most_views]
-                    @clip_posts.most_views
-                  elsif params[:created_at]
-                    @clip_posts.created_at
-                  else
-                    @clip_posts.all.order(created_at: :desc)
-                  end
+    # タグでの絞り込み処理
+    @clip_posts = filtered_clip_posts.page(params[:page]).per(10)
+    # 並び替え処理
+    @clip_posts = ordered_clip_posts(@clip_posts)
   end
 
   def show
@@ -54,18 +37,18 @@ class ClipPostsController < ApplicationController
   def create
     @clip_post = current_user.clip_posts.new(clip_post_params)
     if @clip_post.valid?
-      # Twitch APIで引っ張り出したデータを保存する。
+      # Twitch APIで引っ張り出したデータを代入する。
       data = TwitchApi.new.get_clip(clip_post_params[:url])
       clip_data = data["data"].first
       game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
       streamer_data = TwitchApi.new.get_streamer_image(clip_data["broadcaster_id"])
       streamer_color_data = TwitchApi.new.get_streamer_color(clip_data["broadcaster_id"])
-      # データを代入しセーブ
+      # @clip_postにデータを追加
       @clip_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
-
+      # 画像データを取り出して保存
       create_image_game(game_data)
       create_image_streamer(streamer_data, clip_data, streamer_color_data)
-
+      # データの保存
       if @clip_post.save
         redirect_to clip_posts_path, success: "投稿したヨ"
       else
@@ -94,15 +77,8 @@ class ClipPostsController < ApplicationController
   end
 
   def likes
-    @clip_posts = if params[:clip_created_at]
-                    ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.clip_created_at
-                  elsif params[:most_views]
-                    ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.most_views
-                  elsif params[:created_at]
-                    ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.created_at
-                  else
-                    ClipPost.where(id: current_user.likes.pluck(:clip_post_id)).page(params[:page]).per(10).without_count.order(created_at: :desc)
-                  end
+    @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id))
+    @clip_posts = ordered_clip_posts(@clip_posts).page(params[:page]).per(10)
   end
 
   def get_clip
@@ -161,5 +137,31 @@ class ClipPostsController < ApplicationController
       embed_url: clip_data["embed_url"],
       streamer_image: streamer_data["data"].first["profile_image_url"]
     }
+  end
+
+  def filtered_clip_posts
+    case
+    when params[:tag_name]
+      ClipPost.with_tag(params[:tag_name])
+    when params[:tag_game]
+      ClipPost.with_game(params[:tag_game])
+    when params[:tag_streamer]
+      ClipPost.with_streamer(params[:tag_streamer])
+    else
+      ClipPost.all
+    end
+  end
+
+  def ordered_clip_posts(clip_posts)
+    case
+    when params[:clip_created_at]
+      @clip_posts.clip_created_at
+    when params[:most_views]
+      @clip_posts.most_views
+    when params[:created_at]
+      @clip_posts.created_at
+    else
+      @clip_posts.all.order(created_at: :desc)
+    end
   end
 end
