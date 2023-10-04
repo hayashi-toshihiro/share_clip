@@ -10,20 +10,8 @@ class TwitchApi
 
     # Twitch APIのエンドポイント
     url = "https://api.twitch.tv/helix/clips?id=#{clip_id}"
-
-    # ヘッダーを設定
-    headers = {
-      'Client-ID' => '11gshrju07m1wwgyqgpjrir3scixrl',
-      'Authorization' => 'Bearer j0jjz62acp6manjs0pgiaa7a93haoi'
-    }
-
-    # GETリクエストを送信
-    response = RestClient.get(url, headers)
-
-    # レスポンスをJSON形式にパース
-    JSON.parse(response.body)
-
-    # レスポンスデータを返す
+    # データ取得のリクエスト送信
+    send_request(url)
   rescue RestClient::ExceptionWithResponse
     nil
   end
@@ -32,19 +20,7 @@ class TwitchApi
     # Twitch APIのエンドポイント
     url = "https://api.twitch.tv/helix/games?id=#{game_id}"
 
-    # ヘッダーを設定
-    headers = {
-      'Client-ID' => '11gshrju07m1wwgyqgpjrir3scixrl',
-      'Authorization' => 'Bearer j0jjz62acp6manjs0pgiaa7a93haoi'
-    }
-
-    # GETリクエストを送信
-    response = RestClient.get(url, headers)
-
-    # レスポンスをJSON形式にパース
-    JSON.parse(response.body)
-
-    # レスポンスデータを返す
+    send_request(url)
   rescue RestClient::ExceptionWithResponse
     nil
   end
@@ -53,19 +29,7 @@ class TwitchApi
     # Twitch APIのエンドポイント
     url = "https://api.twitch.tv/helix/users?id=#{broadcaster_id}"
 
-    # ヘッダーを設定
-    headers = {
-      'Client-ID' => '11gshrju07m1wwgyqgpjrir3scixrl',
-      'Authorization' => 'Bearer j0jjz62acp6manjs0pgiaa7a93haoi'
-    }
-
-    # GETリクエストを送信
-    response = RestClient.get(url, headers)
-
-    # レスポンスをJSON形式にパース
-    JSON.parse(response.body)
-
-    # レスポンスデータを返す
+    send_request(url)
   rescue RestClient::ExceptionWithResponse
     nil
   end
@@ -73,19 +37,8 @@ class TwitchApi
   def get_streamer_color(broadcaster_id)
     # Twitch APIのエンドポイント
     url = "https://api.twitch.tv/helix/chat/color?user_id=#{broadcaster_id}"
-    # ヘッダーを設定
-    headers = {
-      'Client-ID' => '11gshrju07m1wwgyqgpjrir3scixrl',
-      'Authorization' => 'Bearer j0jjz62acp6manjs0pgiaa7a93haoi'
-    }
 
-    # GETリクエストを送信
-    response = RestClient.get(url, headers)
-
-    # レスポンスをJSON形式にパース
-    JSON.parse(response.body)
-
-    # レスポンスデータを返す
+    send_request(url)
   rescue RestClient::ExceptionWithResponse
     nil
   end
@@ -94,20 +47,22 @@ class TwitchApi
     # Twitch APIのエンドポイント
     url = "https://api.twitch.tv/helix/chat/emotes?broadcaster_id=#{broadcaster_id}"
 
-    # ヘッダーを設定
+    send_request(url)
+  rescue RestClient::ExceptionWithResponse
+    nil
+  end
+
+  private
+
+  def send_request(url)
+    # ヘッダーの設定
     headers = {
       'Client-ID' => '11gshrju07m1wwgyqgpjrir3scixrl',
       'Authorization' => 'Bearer j0jjz62acp6manjs0pgiaa7a93haoi'
     }
-
-    # GETリクエストを送信
+    # GETリクエストの送信
     response = RestClient.get(url, headers)
-
     # レスポンスをJSON形式にパース
     JSON.parse(response.body)
-
-    # レスポンスデータを返す
-  rescue RestClient::ExceptionWithResponse
-    nil
   end
 end
