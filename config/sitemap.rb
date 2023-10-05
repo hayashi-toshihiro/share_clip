@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://www.example.com"
+SitemapGenerator::Sitemap.default_host = "http://www.clipreactor.com"
 
 SitemapGenerator::Sitemap.create do
   add root_path, priority: 1.0, changefreq: 'daily'
