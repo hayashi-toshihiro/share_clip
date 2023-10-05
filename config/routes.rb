@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'clip_posts/get_clip', to: 'clip_posts#get_clip'
   get 'get_user_stamp', to: 'users#get_user_stamp'
   get 'tags', to: 'tags#index'
-  get '/sitemap', to: redirect("http://s3-ap-northeast-1.amazonaws.com/#{ENV['clipreactor']}/sitemaps/sitemap.xml.gz")
+  get '/sitemap', to: redirect("https://s3-ap-northeast-1.amazonaws.com/#{ENV['clipreactor']}/sitemaps/sitemap.xml.gz")
 
   resources :users, only: %i[new create]
   resources :clip_posts do
