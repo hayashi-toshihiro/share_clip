@@ -1,2 +1,2 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-Sitemap: https://www.#{ENV['S3_BUCKET_NAME']}.com/sitemap.xml.gz
+Sitemap: https://www.clipreactor.com/sitemap.xml.gz
