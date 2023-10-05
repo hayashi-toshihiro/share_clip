@@ -1,5 +1,12 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://www.clipreactor.com"
+SitemapGenerator::Sitemap.sitemaps_host = "https://s3-ap-northeast-1.amazonaws.com/#{ENV['clipreactor']}"
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(
+  ENV['clipreactor'],
+  aws_access_key_id: ENV['AKIAWOEBS25OXJLE4SMV'],
+  aws_secret_access_key: ENV['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'],
+  aws_region: 'ap-northeast-1',
+)
 
 SitemapGenerator::Sitemap.create do
   add root_path, priority: 1.0, changefreq: 'daily'
