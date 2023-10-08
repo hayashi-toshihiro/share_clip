@@ -1,5 +1,6 @@
 class ClipPostsController < ApplicationController
   skip_before_action :require_login, only: %i[index show get_clip]
+  before_action :load_tag_data, only: %i[index new edit likes]
 
   def index
     # タグでの絞り込み処理

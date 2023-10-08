@@ -14,6 +14,15 @@
       <li>
         <%= link_to "ログアウト", logout_path, data: { method: "delete" }, class: "nav-link simple-button text-white" %>
       </li>
-  </ul>
+      <li>
+        <%= link_to "利用規約", terms_path, class: "nav-link simple-button font-size-1 text-muted" %>
+      </li>
+      <li>
+        <%= link_to "プライバシーポリシー", privacy_policy_path, class: "nav-link simple-button font-size-1 text-muted" %>
+      </li>
+      <li>
+        <%= link_to "お問い合わせ", contact_path, class: "nav-link simple-button font-size-1 text-muted" %>
+      </li>
+    </ul>
   </div>
 </div>
