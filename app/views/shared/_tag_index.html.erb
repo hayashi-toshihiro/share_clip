@@ -8,7 +8,7 @@
   <% ClipPost.tags_on(:streamers).order(name: :asc).each do |tag| %>
     <% image_record = image_records[tag.name] %>
     <div class="flex-item ms-1 mt-3 bg-white">
-      <%= link_to clip_posts_path(tag_streamer: tag.name), class: "no-decoration row shadow-btn" do %>
+      <%= link_to clip_posts_path(tag_streamer: tag.name), class: "no-decoration row shadow-btn rounded-3", style: "background: #{image_record&.image_color}10;" do %>
         <div class="col-3">
           <% if image_record && image_record.image_url.present? %>
             <%= image_tag image_record.image_url, class: "rounded-circle", size: "50x50" %>
@@ -16,7 +16,7 @@
             <%= image_tag "default.png", class: "rounded_circle", size: "50x50" %>
           <% end %>
         </div>
-        <div class="col-9 h2 font-5" style="color: <%= image_record&.image_color %>;">
+        <div class="col-9 h2 font-5 text-muted">
           <%= tag.name %>
         </div>
       <% end %>

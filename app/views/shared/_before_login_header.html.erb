@@ -12,10 +12,19 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuDark">
       <li>
-      <%= link_to "新規登録", new_user_path, class: "nav-link simple-button" %>
+        <%= link_to "新規登録", new_user_path, class: "nav-link simple-button" %>
       </li>
       <li>
-      <%= link_to "ログイン", login_path, class: "nav-link simple-button" %>
+        <%= link_to "ログイン", login_path, class: "nav-link simple-button" %>
+      </li>
+      <li>
+        <%= link_to "利用規約", terms_path, class: "nav-link simple-button font-size-1 text-muted" %>
+      </li>
+      <li>
+        <%= link_to "プライバシーポリシー", privacy_policy_path, class: "nav-link simple-button font-size-1 text-muted" %>
+      </li>
+      <li>
+        <%= link_to "お問い合わせ", contact_path, class: "nav-link simple-button font-size-1 text-muted" %>
       </li>
   </ul>
   </div>

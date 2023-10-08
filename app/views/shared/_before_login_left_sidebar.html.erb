@@ -32,15 +32,18 @@
   -->
   
   <!-- プロフィール欄 -->
-    <div class="row bg-light p-2 mt-auto">
-      <div class="menu-item drop-menu">
-        <div class="d-flex align-items-start">
-          <div><%= image_tag current_user.stamp_url, class: "", size: "50x50" %></div>
-          <div class="ms-3 align-self-center">プロフィール</div>
+    <div class="row mt-auto mx-2">
+      <div class="menu-item drop-menu btn-primary btn">
+        <div class="d-flex align-items-start ms-3">
+          <div><%= content_tag :i, nil, class: "fa-solid fa-user" %></div>
+          <div class="ms-3">アカウント作成</div>
         </div>
         <ul class="drop-menu-list">
           <li class="drop-menu-item">
-            <%= link_to "ログアウト", logout_path, data: { method: "delete" } %>
+            <%= link_to "新規登録", new_user_path %>
+          </li>
+          <li class="drop-menu-item">
+            <%= link_to "ログイン", login_path %>
           </li>
         </ul>
       </div>

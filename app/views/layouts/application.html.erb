@@ -33,15 +33,15 @@
   </header>
   <div class="container-fluid">
     <div class="row mb-24">
-      <%= render 'shared/left_sidebar' %>
+      <% if logged_in? %>
+        <%= render 'shared/left_sidebar' %>
+      <% else %>
+        <%= render 'shared/before_login_left_sidebar' %>
+      <% end %>
       <div class="col-6 full-width">
         <%= yield %>
       </div>
-      <% if logged_in? %>
-        <%= render 'shared/right_sidebar' %>
-      <% else %>
-        <%= render 'shared/before_login_right_sidebar' %>
-      <% end %>
+      <%= render 'shared/right_sidebar' %>
     </div>
     </div>
     <footer class="hidden-big-screen">

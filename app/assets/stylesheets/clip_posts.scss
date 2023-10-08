@@ -53,6 +53,9 @@ h2.font-round {
   font-family: 'Roboto', Arial;
 }
 
+.font-color-twitch {
+  color: #bf94ff;
+}
 .background-color-lightblue {
   background-color: rgb(243, 255, 255);
 }
@@ -168,6 +171,40 @@ h2.font-round {
 .simple-button-purple:hover {
   transition: color 0.5s;
   color: #bf94ff;
+}
+
+/* メニューアイテムのホバースタイル */
+.menu-item:hover .drop-menu-list {
+  opacity: 0.9; /* 不透明度を最大に */
+  transition: opacity .3s, visibility .3s; /* アニメーション設定 */
+  visibility: visible; /* 下層メニューを表示 */
+}
+
+.menu-item a {
+  align-items: center;
+  color: #fff; /* メニューアイテム内のリンクテキストの色 */
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  text-decoration: none; /* リンクの下線を非表示 */
+  width: 120px;
+}
+
+/* ドロップダウンメニュー */
+.drop-menu {
+  position: relative;
+}
+/* ドロップアップメニュー */
+.drop-menu-list {
+  background-color: #696969; /* ドロップアップメニューの背景色 */
+  left: 0;
+  opacity: 0; /* 不透明度を最小に */
+  position: absolute;
+  bottom: 100%; /* top から bottom に変更 */
+  transition: opacity .3s, visibility .3s; /* アニメーション設定 */
+  visibility: hidden; /* 下層メニューを非表示 */
+  width: max-content;
+  z-index: 1;
 }
 
 @font-face {
@@ -310,7 +347,7 @@ h2.font-round {
   }
 
   .hidden-small-screen{
-    display: none;
+    display: none !important;
   }
 
   .col-6.full-width {
