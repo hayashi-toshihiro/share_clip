@@ -16,7 +16,7 @@ class TagsController < ApplicationController
     matching_streamers_names = ClipPost.tags_on(:streamers)
                                 .select do |tag|
                                   roman_name = to_roman(tag.name)
-                                  matching_character_count(roman_name, term_romaji) >= 2 ||
+                                  matching_character_count(roman_name, term_romaji) < 0.85 ||
                                     roman_name.include?(term_romaji)
                                 end
                                 .map(&:name)
@@ -46,6 +46,6 @@ class TagsController < ApplicationController
     # レーベンシュタイン距離で一致する文字数をカウント
     distance = Levenshtein.distance(str1, str2)
     max_length = [str1.length, str2.length].max
-    matching_count = max_length - distance
+    normalized_distance = distance.to_f / max_length
   end
 end
