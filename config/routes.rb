@@ -3,9 +3,14 @@ Rails.application.routes.draw do
   get 'test', to: 'test#new'
   get 'clip_posts/get_clip', to: 'clip_posts#get_clip'
   get 'get_user_stamp', to: 'users#get_user_stamp'
-  get 'tags', to: 'tags#index'
   get 'sitemap', to: redirect('https://s3-ap-northeast-1.amazonaws.com/clipreactor/sitemaps/sitemap.xml.gz')
 
+  resources :tags do
+    collection do
+      get :auto_complete_streamers
+      get :auto_complete_tags
+    end
+  end
   resources :users, only: %i[new create]
   resources :clip_posts do
     resources :comments, shallow: true, only: %i[create destroy]

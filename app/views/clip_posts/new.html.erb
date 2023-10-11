@@ -57,3 +57,21 @@
     <% end %>
   </div>
 </div>
+
+<script>
+$(function() {
+  $('#streamer_list').autocomplete({
+    source: "/tags/auto_complete_streamers.json",
+    delay: 500,
+    minLength: 1,
+  })
+});
+
+$(function() {
+  $('#tag_list').autocomplete({
+    source: "/tags/auto_complete_tags.json",
+    delay: 500,
+    minLength: 1,
+  })
+});
+</script>

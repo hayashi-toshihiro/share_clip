@@ -10,8 +10,10 @@ import "channels"
 import '@fortawesome/fontawesome-free/js/all';
 import "bootstrap";
 import "../stylesheets/application.scss";
-import "./preview.js"
-import "./scroll.js"
+import "./preview.js";
+import "./scroll.js";
+import "jquery-ui";
+import "jquery-ui/ui/widgets/autocomplete";
 
 Rails.start()
 Turbolinks.start()
