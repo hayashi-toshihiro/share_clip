@@ -16,7 +16,7 @@ class TagsController < ApplicationController
     matching_streamers_names = ClipPost.tags_on(:streamers)
                                 .select do |tag|
                                   roman_name = to_roman(tag.name)
-                                  matching_character_count(roman_name, term_romaji) < 0.85 ||
+                                  matching_character_count(roman_name, term_romaji) < 0.65 ||
                                     roman_name.include?(term_romaji)
                                 end
                                 .map(&:name)
