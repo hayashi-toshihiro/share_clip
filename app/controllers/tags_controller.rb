@@ -1,9 +1,9 @@
 class TagsController < ApplicationController
   skip_before_action :require_login, only: %i[index]
-  require 'miyabi'
   require 'romaji'
   require 'romaji/core_ext/string'
   require 'levenshtein'
+  #require 'miyabi'
 
   def index
   end
@@ -37,9 +37,9 @@ class TagsController < ApplicationController
   def to_roman(text)
     text = text.downcase
     return text if text.include?('_')
-    return text if text.is_roman?
-    
-    text.to_kanhira.romaji
+    # 本来text.to_kanhira.romajiとして漢字をひらがなに変換もしたいが、heroku未対応のため漢字以外で検索する
+    # また、レーベンシュタイン距離での一致検索のおかげで、精度も悪くはない。
+    text.romaji
   end
 
   def matching_character_count(str1, str2)
