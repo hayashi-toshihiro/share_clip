@@ -13,4 +13,5 @@
  *= require_tree .
  *= require clip_posts
  *= require_self
+ *= require jquery-ui
  */
