@@ -1,0 +1,59 @@
+<div class="container border-dark border-1 border mt-1">
+  <div class="">
+    <div class="row">
+      <div class="col-10">
+      <% if flash[:error] %>
+        alert("<%= j flash[:error] %>");
+      <% end %>
+        <div>一方その頃</div>
+        <div class="d-flex align-items-center">
+          <div class="cp_ipselect cp_sl01">
+            <%= select_tag 'streamer_name', options_for_select(ClipPost.tags_on(:streamers).order(name: :asc).map { |streamer| [streamer.name] },@user_name ), include_blank: 'この人' %>
+          </div>
+          <div>は?</div>
+        </div>
+      </div>
+      <div class="col-2 d-flex align-items-center">
+      <!-- モーダルウィンドウボタン -->
+      <%= link_to "#", class: "no-decoration justify-content-center", data: { bs_toggle: "modal", bs_target: "#exampleModal" } do %>
+      <i class="fa-solid fa-circle-info fa-xl" style="color: #a80092;"></i>
+      <% end %>
+       <!-- ウィンドウ内容 -->
+       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title fs-5" id="exampleModalLabel">ヘルプ！！</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+               <h5> 一方その頃機能とは？ </h5>
+               <ul>
+                 <li> クリップが作成された瞬間の他の配信者のアーカイブを見ることができる機能です。</li>
+                 <li> クリップの相手視点を探す際や、アーカイブの同時視聴にお役立てください！</li>
+               </ul>
+               <h5> 注意点 </h5>
+               <ul>
+                 <li> クリップの長さや他の要因により、クリップの場面までに最大90秒の時間差が発生します。</li>
+                 <li> 配信中に作成されたクリップでない場合、アーカイブへの正確な移動ができません。 </li>
+                 <li> リストに配信者がいない場合は、その配信者のクリップを投稿することで追加されます。</li>
+               </ul>
+               <h5> エラー等 </h5>
+               <ul>
+                 <li> 次のアーカイブが表示される場合。その時間帯にその配信者はtwitchで配信をしていなかったようです。</li>
+                 <li> アーカイブが切り替わらない場合。twitchでは2ヶ月以上前のアーカイブは消えてしまうことから、アーカイブが見つからない場合があります。</li>
+               </ul>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             </div>
+           </div>
+         </div>
+       </div>
+      </div>
+    </div>
+    <div class="ratio mbs-2" style="--bs-aspect-ratio: 56.25%;">
+      <iframe id="this_video" src="https://player.twitch.tv/?video=<%= @video_id %>&time=<%= @formatted_time %>&autoplay=false&amp;parent=localhost&parent=clipreactor-b7f1a520b2e7.herokuapp.com&parent=www.clipreactor.com" autoplay="false" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+    </div>
+  </div>
+</div>
