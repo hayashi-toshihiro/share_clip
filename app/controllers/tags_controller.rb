@@ -1,16 +1,10 @@
 class TagsController < ApplicationController
   skip_before_action :require_login, only: %i[index]
-<<<<<<< Updated upstream
   require 'romaji'
   require 'romaji/core_ext/string'
   require 'levenshtein'
   #require 'miyabi'
-=======
-  require 'miyabi'
-  require 'romaji'
-  require 'romaji/core_ext/string'
-  require 'levenshtein'
->>>>>>> Stashed changes
+
 
   def index
   end
@@ -23,12 +17,8 @@ class TagsController < ApplicationController
     matching_streamers_names = ClipPost.tags_on(:streamers)
                                 .select do |tag|
                                   roman_name = to_roman(tag.name)
-<<<<<<< Updated upstream
                                   matching_character_count(roman_name, term_romaji) < 0.65 ||
-=======
-                                  matching_character_count(roman_name, term_romaji) >= 2 ||
->>>>>>> Stashed changes
-                                    roman_name.include?(term_romaji)
+                                  roman_name.include?(term_romaji)
                                 end
                                 .map(&:name)
   
@@ -48,25 +38,15 @@ class TagsController < ApplicationController
   def to_roman(text)
     text = text.downcase
     return text if text.include?('_')
-<<<<<<< Updated upstream
     # 本来text.to_kanhira.romajiとして漢字をひらがなに変換もしたいが、heroku未対応のため漢字以外で検索する
     # また、レーベンシュタイン距離での一致検索のおかげで、精度も悪くはない。
     text.romaji
-=======
-    return text if text.is_roman?
-    
-    text.to_kanhira.romaji
->>>>>>> Stashed changes
   end
 
   def matching_character_count(str1, str2)
     # レーベンシュタイン距離で一致する文字数をカウント
     distance = Levenshtein.distance(str1, str2)
     max_length = [str1.length, str2.length].max
-<<<<<<< Updated upstream
     normalized_distance = distance.to_f / max_length
-=======
-    matching_count = max_length - distance
->>>>>>> Stashed changes
   end
 end

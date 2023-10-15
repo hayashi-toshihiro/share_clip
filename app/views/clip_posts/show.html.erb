@@ -31,6 +31,7 @@
      <%= render 'crud_menus.html.erb', clip_post: @clip_post %>
     </div>
   </div>
+  <%= render 'another_moment.html.erb' %>
 
   <!-- コメントの投稿フォーム -->
   <div class="container border-dark border-1 border mt-2">
@@ -51,3 +52,22 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $('#streamer_name').change(function() {
+    console.log("クリック")
+    var streamer_name = $(this).val();
+    var clip_created_at = '<%= @clip_post.clip_created_at %>';
+    $.ajax({
+      url: '/clip_posts/update_video',
+      type: 'GET',
+      data: { streamer_name: streamer_name, clip_created_at: clip_created_at },
+      success: function() {
+        // update_video アクションの処理後に show アクションにリダイレクト
+        window.location.href = '/clip_posts/<%= @clip_post.id %>';
+      }
+    });
+  });
+});
+</script>

@@ -13,6 +13,13 @@ class ClipPostsController < ApplicationController
     @clip_post = ClipPost.find(params[:id])
     @comment = Comment.new
     @comments = @clip_post.comments.includes(:user).order(created_at: :desc)
+
+    # update_vidoeから取得した内容
+    video_data = session[:video_data]
+    @video_id = video_data["video_id"]
+    @formatted_time = video_data["formatted_time"]
+    @user_name = video_data["user_name"]
+  
     render layout: 'compact'
   end
 
@@ -117,6 +124,26 @@ class ClipPostsController < ApplicationController
     image.save
   end
 
+  def update_video
+    broadcaster_id = Image.find_by(name: params[:streamer_name])&.image_id
+    clip_created_time = params[:clip_created_at]
+    video_data = TwitchApi.new.get_archive(broadcaster_id,clip_created_time)
+    # 動画に必要な要素のピックアップ
+    video_id = video_data["data"].first["id"]
+    total_seconds = video_data["data"].first["time_difference_seconds"]
+
+    hours = total_seconds / 3600
+    minutes = (total_seconds % 3600) / 60
+    seconds = total_seconds % 60
+
+    formatted_time = format("%02dh%02dm%02ds", hours, minutes, seconds)
+
+    user_name = video_data["data"].first["user_name"]
+
+    session[:video_data] = { video_id: video_id, formatted_time: formatted_time, user_name: user_name }
+    render json: {success: true }
+  end
+
   private
 
   def clip_post_params
@@ -129,7 +156,7 @@ class ClipPostsController < ApplicationController
       thumbnail: clip_data["thumbnail_url"],
       title: clip_data["title"],
       streamer: clip_data["broadcaster_name"],
-      clip_created_at: Time.parse(clip_data["created_at"]).utc,
+      clip_created_at: Time.parse(clip_data["created_at"]).in_time_zone("Tokyo"),
       views: clip_data["view_count"],
       content_title: clip_post_params[:content_title],
       tag_list: clip_post_params[:tag_list],

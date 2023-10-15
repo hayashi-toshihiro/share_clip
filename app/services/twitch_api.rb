@@ -52,6 +52,56 @@ class TwitchApi
     nil
   end
 
+  def get_archive(broadcaster_id, clip_created_time)
+    url = "https://api.twitch.tv/helix/videos?user_id=#{broadcaster_id}&period=month&type=archive"
+    response = send_request(url)
+    return nil unless response
+  
+    # created_atの配列を抽出
+    created_at_times = extract_created_at_times(response)
+  
+    # clip_created_time以前の最も近いcreated_atを取得
+    nearest_created_at = find_nearest_created_at(clip_created_time, created_at_times)
+    # ビデオデータのIDを取得
+    video_id = response['data'].find { |video| Time.parse(video['created_at']) == nearest_created_at }&.fetch('id', nil)
+
+  
+    # クリップ作成時刻とビデオ作成時刻の差を秒単位で計算
+    time_difference_seconds = calculate_time_difference_in_seconds(Time.parse(clip_created_time), nearest_created_at)
+  
+    # video_dataとして、videoの内容とtime_defferenceを返す
+    video_data = get_video(video_id)
+    video_data["data"][0]["time_difference_seconds"] = time_difference_seconds
+    return video_data
+  end
+
+  # レスポンスからcreated_atの配列を作成するメソッド
+  def extract_created_at_times(response)
+    return [] unless response && response['data']
+  
+    response['data'].map { |video| Time.parse(video['created_at']) }
+  end
+  
+  # clip_created_timeから遡って一番近いcreated_atを取得するメソッド
+  def find_nearest_created_at(clip_created_time, created_at_times)
+    clip_time = Time.parse(clip_created_time)
+    nearest_time = created_at_times.select { |time| time <= clip_time }.max
+    nearest_time
+  end
+
+  def calculate_time_difference_in_seconds(clip_created_time, video_created_time)
+    time_difference_seconds = (video_created_time - clip_created_time).to_i
+    time_difference_seconds.abs - 80 
+  end
+
+  def get_video(video_id)
+    url = "https://api.twitch.tv/helix/videos?id=#{video_id}"
+
+    send_request(url)
+  rescue RestClient::ExceptionWithResponse
+    nil
+  end
+
   private
 
   def send_request(url)

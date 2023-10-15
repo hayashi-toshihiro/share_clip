@@ -61,10 +61,30 @@
 <script>
 $(function() {
   $('#streamer_list').autocomplete({
-    source: "/tags/auto_complete_streamers.json",
+    source: function(request, response) {
+      // カンマで区切って最後のクエリを取得
+      var termArray = request.term.split(',');
+      var lastTerm = termArray[termArray.length - 1].trim();
+
+      // 最後のクエリに対してオートコンプリートの処理を行う
+      $.ajax({
+        url: "/tags/auto_complete_streamers.json",
+        data: { term: lastTerm },
+        success: function(data) {
+          response(data);
+        }
+      });
+    },
     delay: 500,
     minLength: 1,
-  })
+    select: function(event, ui) {
+      // オートコンプリートで選択された値をフォームの最後の項目に追加
+      var terms = $('#streamer_list').val().split(',');
+      terms[terms.length - 1] = ui.item.value.trim() + ',';
+      $('#streamer_list').val(terms.join(', '));
+      return false;
+    }
+  });
 });
 
 $(function() {

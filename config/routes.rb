@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: "clip_posts#index"
   get 'test', to: 'test#new'
   get 'clip_posts/get_clip', to: 'clip_posts#get_clip'
+  get 'clip_posts/update_video', to: 'clip_posts#update_video' 
   get 'get_user_stamp', to: 'users#get_user_stamp'
   get 'sitemap', to: redirect('https://s3-ap-northeast-1.amazonaws.com/clipreactor/sitemaps/sitemap.xml.gz')
 
