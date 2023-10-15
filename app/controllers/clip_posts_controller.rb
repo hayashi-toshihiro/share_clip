@@ -15,7 +15,7 @@ class ClipPostsController < ApplicationController
     @comments = @clip_post.comments.includes(:user).order(created_at: :desc)
 
     # update_vidoeから取得した内容
-    video_data = session[:video_data]
+    video_data = session[:video_data] || {}
     @video_id = video_data["video_id"]
     @formatted_time = video_data["formatted_time"]
     @user_name = video_data["user_name"]
