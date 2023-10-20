@@ -56,7 +56,6 @@
 <script>
 $(document).ready(function() {
   $('#streamer_name').change(function() {
-    console.log("クリック")
     var streamer_name = $(this).val();
     var clip_created_at = '<%= @clip_post.clip_created_at %>';
     $.ajax({

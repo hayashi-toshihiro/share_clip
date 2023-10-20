@@ -2,9 +2,6 @@
   <div class="">
     <div class="row">
       <div class="col-10">
-      <% if flash[:error] %>
-        alert("<%= j flash[:error] %>");
-      <% end %>
         <div>一方その頃</div>
         <div class="d-flex align-items-center">
           <div class="cp_ipselect cp_sl01">
@@ -16,7 +13,7 @@
       <div class="col-2 d-flex align-items-center">
       <!-- モーダルウィンドウボタン -->
       <%= link_to "#", class: "no-decoration justify-content-center", data: { bs_toggle: "modal", bs_target: "#exampleModal" } do %>
-      <i class="fa-solid fa-circle-info fa-xl" style="color: #a80092;"></i>
+        <i class="fa-solid fa-circle-info fa-xl" style="color: #a80092;"></i>
       <% end %>
        <!-- ウィンドウ内容 -->
        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

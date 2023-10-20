@@ -2,6 +2,7 @@ class ClipPost < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :view_histories, dependent: :destroy
 
   acts_as_taggable_on :tags
   acts_as_taggable_on :streamers
@@ -20,5 +21,16 @@ class ClipPost < ApplicationRecord
 
   def liked_by?(user)
     likes.exists?(user_id: user.id)
+  end
+
+  def view_history(user)
+    # 視聴履歴を保存する処理
+    new_history = view_histories.new(user_id: user.id)
+    # 既に視聴済みの場合、古い履歴を削除し新しい履歴を追加する
+    if user.view_histories.exists?(clip_post_id: id)
+      visited_history = user.view_histories.find_by(clip_post_id: id)
+      visited_history.destroy
+    end
+    new_history.save
   end
 end

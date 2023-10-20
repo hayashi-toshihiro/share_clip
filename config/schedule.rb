@@ -17,3 +17,7 @@ set :output, "#{Rails.root}/log/cron.log"
 every 1.week, roles: %i(app) do
   rake '-s sitemap:refresh'
 end
+
+every 1.week do
+  runner 'ViewHistory.where("created_at < ?", 30.days.ago.beginning_of_day).delete_all'
+end
