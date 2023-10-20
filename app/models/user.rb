@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :comment_likes, dependent: :destroy
   has_many :comment_like_comments, through: :comment_likes, source: :comment
+  has_many :view_histories, dependent: :destroy
 
   validates :email, uniqueness: true, presence: true
   validates :password, confirmation: true

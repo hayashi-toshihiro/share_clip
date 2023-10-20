@@ -3,7 +3,7 @@ class ClipPostsController < ApplicationController
   before_action :load_tag_data, only: %i[index new edit likes]
 
   def index
-    # タグでの絞り込み処理
+    # タグでの絞り込み処理(+おすすめ機能)
     @clip_posts = filtered_clip_posts.page(params[:page]).per(10)
     # 並び替え処理
     @clip_posts = ordered_clip_posts(@clip_posts)
@@ -11,6 +11,10 @@ class ClipPostsController < ApplicationController
 
   def show
     @clip_post = ClipPost.find(params[:id])
+    if logged_in?
+      # 視聴履歴を保存する
+      @clip_post.view_history(current_user)
+    end
     @comment = Comment.new
     @comments = @clip_post.comments.includes(:user).order(created_at: :desc)
 
@@ -24,6 +28,7 @@ class ClipPostsController < ApplicationController
   end
 
   def new
+    # プレビューのデフォルトを設定
     @clip_post = ClipPost.new(
       thumbnail: "https://clips-media-assets2.twitch.tv/ZVRdGDcuY5vZ5865K5yDqw/AT-cm%7CZVRdGDcuY5vZ5865K5yDqw-preview-480x272.jpg",
       streamer: "赤見かるび",
@@ -51,12 +56,14 @@ class ClipPostsController < ApplicationController
       game_data = TwitchApi.new.get_game_name(clip_data["game_id"])
       streamer_data = TwitchApi.new.get_streamer_image(clip_data["broadcaster_id"])
       streamer_color_data = TwitchApi.new.get_streamer_color(clip_data["broadcaster_id"])
+
       # @clip_postにデータを追加
       @clip_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
-      # 画像データを取り出して保存
+
+      # 画像データを取り出してImageテーブルに保存
       create_image_game(game_data)
       create_image_streamer(streamer_data, clip_data, streamer_color_data)
-      # データの保存
+
       if @clip_post.save
         redirect_to clip_posts_path, success: "投稿したヨ"
       else
@@ -125,13 +132,14 @@ class ClipPostsController < ApplicationController
   end
 
   def update_video
+    # Imageクラスからbroadcaster_idを取り出す。
     broadcaster_id = Image.find_by(name: params[:streamer_name])&.image_id
     clip_created_time = params[:clip_created_at]
+    # 動画の内容をピックアップ（時間のずれデータもここで計算し取得）
     video_data = TwitchApi.new.get_archive(broadcaster_id,clip_created_time)
-    # 動画に必要な要素のピックアップ
     video_id = video_data["data"].first["id"]
+    # 秒数を〇時〇分〇秒に変換
     total_seconds = video_data["data"].first["time_difference_seconds"]
-
     hours = total_seconds / 3600
     minutes = (total_seconds % 3600) / 60
     seconds = total_seconds % 60
@@ -139,8 +147,9 @@ class ClipPostsController < ApplicationController
     formatted_time = format("%02dh%02dm%02ds", hours, minutes, seconds)
 
     user_name = video_data["data"].first["user_name"]
-
+    # セッションを使って、リロード後もセレクトボックスの値と得たデータを保持しておき表示する。
     session[:video_data] = { video_id: video_id, formatted_time: formatted_time, user_name: user_name }
+    # javascriptによって、この後showアクションを実行する
     render json: {success: true }
   end
 
@@ -168,25 +177,52 @@ class ClipPostsController < ApplicationController
   end
 
   def filtered_clip_posts
-    case
-    when params[:tag_name]
+    if params[:tag_name]
+      set_filter("tag_name", params[:tag_name])
       ClipPost.with_tag(params[:tag_name])
-    when params[:tag_game]
+    elsif params[:tag_game]
+      set_filter("tag_game", params[:tag_game])
       ClipPost.with_game(params[:tag_game])
-    when params[:tag_streamer]
+    elsif params[:tag_streamer]
+      set_filter("tag_streamer", params[:tag_streamer])
       ClipPost.with_streamer(params[:tag_streamer])
+    elsif params[:recommend]
+      clip_posts = RecommendClip.new(current_user)
+      clip_posts.recommend_clip.order("RANDOM()")
+    elsif params[:reset_filter]
+      session.delete(:filter)
+      session.delete(:filter_value)
+      ClipPost.all
+    elsif session[:filter] && session[:filter_value]
+      case session[:filter]
+      when "tag_name"
+        ClipPost.with_tag(session[:filter_value])
+      when "tag_game"
+        ClipPost.with_game(session[:filter_value])
+      when "tag_streamer"
+        ClipPost.with_streamer(session[:filter_value])
+      else
+        ClipPost.all
+      end
     else
       ClipPost.all
     end
   end
 
+  def set_filter(filter, value)
+    session[:filter] = filter
+    session[:filter_value] = value
+  end
+
   def ordered_clip_posts(clip_posts)
-    case
-    when params[:clip_created_at]
+    sort_order = params[:order] || session[:sort_order] || "created_at"
+    session[:sort_order] = sort_order
+    case sort_order
+    when "clip_created_at"
       @clip_posts.clip_created_at
-    when params[:most_views]
+    when "most_views"
       @clip_posts.most_views
-    when params[:created_at]
+    when "created_at"
       @clip_posts.created_at
     else
       @clip_posts.all.order(created_at: :desc)

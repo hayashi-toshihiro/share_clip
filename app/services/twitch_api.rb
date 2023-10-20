@@ -64,7 +64,6 @@ class TwitchApi
     nearest_created_at = find_nearest_created_at(clip_created_time, created_at_times)
     # ビデオデータのIDを取得
     video_id = response['data'].find { |video| Time.parse(video['created_at']) == nearest_created_at }&.fetch('id', nil)
-
   
     # クリップ作成時刻とビデオ作成時刻の差を秒単位で計算
     time_difference_seconds = calculate_time_difference_in_seconds(Time.parse(clip_created_time), nearest_created_at)
@@ -91,7 +90,7 @@ class TwitchApi
 
   def calculate_time_difference_in_seconds(clip_created_time, video_created_time)
     time_difference_seconds = (video_created_time - clip_created_time).to_i
-    time_difference_seconds.abs - 80 
+    time_difference_seconds.abs - 65
   end
 
   def get_video(video_id)
