@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   resources :comment_likes, only: %i[create destroy]
 
   # Static Pages
-  get 'terms', to: 'static_pages#terms'
-  get 'privacy_policy', to: 'static_pages#privacy_policy'
+  get 'terms', to: 'satatic_pages#terms'
+  get 'privacy_policy', to: 'satatic_pages#privacy_policy'
 
   # Contacts
   get 'contact', to: 'contacts#new'
