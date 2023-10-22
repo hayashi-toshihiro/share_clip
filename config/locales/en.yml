@@ -40,3 +40,4 @@ en:
   models:
     clip_post:
       url_invalid_format: "は正しい形式ではありません"
+      url_not_clip: "クリップを貼ってネ"

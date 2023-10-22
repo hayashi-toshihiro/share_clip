@@ -3,11 +3,9 @@ class TagsController < ApplicationController
   require 'romaji'
   require 'romaji/core_ext/string'
   require 'levenshtein'
-  #require 'miyabi'
+  # require 'miyabi'
 
-
-  def index
-  end
+  def index; end
 
   def auto_complete_streamers
     term = params[:term]
@@ -15,13 +13,13 @@ class TagsController < ApplicationController
     term_romaji = to_roman(term)
     # それぞれのタグをローマ字変換して、条件で絞る
     matching_streamers_names = ClipPost.tags_on(:streamers)
-                                .select do |tag|
-                                  roman_name = to_roman(tag.name)
-                                  matching_character_count(roman_name, term_romaji) < 0.65 ||
-                                  roman_name.include?(term_romaji)
-                                end
-                                .map(&:name)
-  
+                                       .select do |tag|
+      roman_name = to_roman(tag.name)
+      matching_character_count(roman_name, term_romaji) < 0.65 ||
+        roman_name.include?(term_romaji)
+    end
+                                       .map(&:name)
+
     # オートコンプリートの候補としてnameを返す
     render json: matching_streamers_names
   end
@@ -38,6 +36,7 @@ class TagsController < ApplicationController
   def to_roman(text)
     text = text.downcase
     return text if text.include?('_')
+
     # 本来text.to_kanhira.romajiとして漢字をひらがなに変換もしたいが、heroku未対応のため漢字以外で検索する
     # また、レーベンシュタイン距離での一致検索のおかげで、精度も悪くはない。
     text.romaji
@@ -47,6 +46,6 @@ class TagsController < ApplicationController
     # レーベンシュタイン距離で一致する文字数をカウント
     distance = Levenshtein.distance(str1, str2)
     max_length = [str1.length, str2.length].max
-    normalized_distance = distance.to_f / max_length
+    distance.to_f / max_length
   end
 end

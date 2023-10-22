@@ -6,7 +6,7 @@ class ClipPostsController < ApplicationController
     # タグでの絞り込み処理(+おすすめ機能)
     @clip_posts = filtered_clip_posts.page(params[:page]).per(10)
     # 並び替え処理
-    @clip_posts = ordered_clip_posts(@clip_posts)
+    @clip_posts = ordered_clip_posts
   end
 
   def show
@@ -23,7 +23,7 @@ class ClipPostsController < ApplicationController
     @video_id = video_data["video_id"]
     @formatted_time = video_data["formatted_time"]
     @user_name = video_data["user_name"]
-  
+
     render layout: 'compact'
   end
 
@@ -135,22 +135,24 @@ class ClipPostsController < ApplicationController
     # Imageクラスからbroadcaster_idを取り出す。
     broadcaster_id = Image.find_by(name: params[:streamer_name])&.image_id
     clip_created_time = params[:clip_created_at]
+
     # 動画の内容をピックアップ（時間のずれデータもここで計算し取得）
-    video_data = TwitchApi.new.get_archive(broadcaster_id,clip_created_time)
+    video_data = TwitchApi.new.get_archive(broadcaster_id, clip_created_time)
     video_id = video_data["data"].first["id"]
+
     # 秒数を〇時〇分〇秒に変換
     total_seconds = video_data["data"].first["time_difference_seconds"]
     hours = total_seconds / 3600
     minutes = (total_seconds % 3600) / 60
     seconds = total_seconds % 60
 
-    formatted_time = format("%02dh%02dm%02ds", hours, minutes, seconds)
+    formatted_time = format("%<hours>02dh%<minutes>02dm%<seconds>02ds", hours: hours, minutes: minutes, seconds: seconds)
 
     user_name = video_data["data"].first["user_name"]
     # セッションを使って、リロード後もセレクトボックスの値と得たデータを保持しておき表示する。
     session[:video_data] = { video_id: video_id, formatted_time: formatted_time, user_name: user_name }
     # javascriptによって、この後showアクションを実行する
-    render json: {success: true }
+    render json: { success: true }
   end
 
   private
@@ -201,8 +203,6 @@ class ClipPostsController < ApplicationController
         ClipPost.with_game(session[:filter_value])
       when "tag_streamer"
         ClipPost.with_streamer(session[:filter_value])
-      else
-        ClipPost.all
       end
     else
       ClipPost.all
@@ -214,7 +214,7 @@ class ClipPostsController < ApplicationController
     session[:filter_value] = value
   end
 
-  def ordered_clip_posts(clip_posts)
+  def ordered_clip_posts
     sort_order = params[:order] || session[:sort_order] || "created_at"
     session[:sort_order] = sort_order
     case sort_order

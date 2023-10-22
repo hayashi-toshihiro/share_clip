@@ -27,7 +27,7 @@ https://www.twitch.tv/fps_shaka/clip/WiseRelatedFishRuleFive-dRUYdZpxGU5_VcTV?fe
 https://i.gyazo.com/4ef61580d96fd1c837fa1ae2eb5c7ad2.mp4
 https://i.gyazo.com/f675e8af99a467c5aaa892c7f6753808.mp4
 
-## 実装を予定している機能
+## 実装している機能
 ### MVP
 * 会員登録
 * ログイン、ログアウト
@@ -44,13 +44,15 @@ https://i.gyazo.com/f675e8af99a467c5aaa892c7f6753808.mp4
 * 利用規約・プライバシーポリシー
 * 独自ドメイン
 
-### その後の機能
+### 本リリース機能
 * googleアナリティクス
+* sitemapの作成
 * サイドバーの固定
 * お問い合わせ機能
-* スマホへの対応
+* スマホへの対応(サイドバーをヘッダーフッターに振り分ける)
 * レコメンド機能（おすすめの表示）
 * マルチ検索・オートコンプリート（類似タグ作成しないためにも欲しい）
+* クリップの他視点のアーカイブに移動できる機能
 
 ### 実現可能かも不確かな追加機能
 * 自動でtwitchからクリップを取得(twitchのアーカイブのコメントを元に取得したい)
@@ -59,8 +61,5 @@ https://i.gyazo.com/f675e8af99a467c5aaa892c7f6753808.mp4
 ーーFigmaーー
 作成ページ一覧：　https://www.figma.com/files/drafts?fuid=1247421629732133027
 
-今回編集の共有ができていませんが、Figmaの無料プランでは３ファイルまでとなっているようですので、閲覧のみでの共有となっております。
-
-
 --ER図--
-![Alt text](images/ER%E5%9B%B3.drawio.png)
+![Alt text](images/ER%E5%9B%B3.png)
