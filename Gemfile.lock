@@ -1609,6 +1609,8 @@ GEM
       mechanize (~> 2.9)
     msgpack (1.7.2)
     multi_xml (0.6.0)
+    net-http (0.3.2)
+      uri
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
@@ -1771,6 +1773,7 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.5.0)
+    uri (0.12.2)
     version_gem (1.1.3)
     web-console (4.2.1)
       actionview (>= 6.0.0)
@@ -1815,6 +1818,7 @@ DEPENDENCIES
   listen (~> 3.3)
   meta-tags
   miyabi
+  net-http
   pg
   pry-byebug
   puma (~> 5.0)
