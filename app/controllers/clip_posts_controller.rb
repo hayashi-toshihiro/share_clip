@@ -93,7 +93,7 @@ class ClipPostsController < ApplicationController
 
   def likes
     @clip_posts = ClipPost.where(id: current_user.likes.pluck(:clip_post_id))
-    @clip_posts = ordered_clip_posts(@clip_posts).page(params[:page]).per(10)
+    @clip_posts = ordered_clip_posts.page(params[:page]).per(10)
   end
 
   def get_clip
