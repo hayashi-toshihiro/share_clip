@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   end
 
   # Users
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create] do
+    collection do
+      get :get_user_stamp
+    end
+  end
 
   # Likes and Comment Likes
   resources :likes, only: %i[create destroy]

@@ -4,7 +4,7 @@
 <div class="overflow-auto" style="height: 300px">
   <% ClipPost.tags_on(:streamers).order(name: :asc).each do |tag| %>
     <div class="ms-1 mt-3 bg-white">
-      <%= link_to get_user_stamp_path(streamer_name: tag.name), class: "no-decoration row shadow-btn", remote: true do %>
+      <%= link_to get_user_stamp_users_path(streamer_name: tag.name), class: "no-decoration row shadow-btn", remote: true do %>
         <div class="col-3">
         <% image_record = Image.find_by(name: tag.name) %>
           <% if image_record && image_record.image_url.present? %>
