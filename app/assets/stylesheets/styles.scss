@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
 @import url('https://fonts.googleapis.com/css?family=Kosugi');
 @import url(https://fonts.googleapis.com/css?family=Roboto);
-
+// anothor_videoのタグ選択
 .cp_ipselect {
   overflow: hidden;
   display: inline-block;
@@ -54,13 +54,13 @@
 .mbs-2 {
   margin-bottom: 0.5rem;
 }
-
+// タグの基本レイアウト
 .tag_wrapper {
-    background: #b4ffe1; /*背景色*/
-    padding: 0.2rem 0.5rem;/*文字周りの余白*/
+    background: #b4ffe1;
+    padding: 0.2rem 0.5rem;
     margin: 0.2rem 0.3rem;
-    color: darkblue;/*文字を白に*/
-    border-radius: 125px;/*角の丸み*/
+    color: darkblue;
+    border-radius: 125px;
     position: relative;
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
   }
@@ -115,13 +115,13 @@ h2.font-round {
 }
 
 .tag-list-title {
-  color: #505050;/*文字色*/
-  padding: 0.5em;/*文字周りの余白*/
-  display: inline-block;/*おまじない*/
-  line-height: 0.8;/*行高*/
-  background: #dbebf8;/*背景色*/
+  color: #505050;
+  padding: 0.5em;
+  display: inline-block;
+  line-height: 0.8;
+  background: #dbebf8;
   vertical-align: middle;
-  border-radius: 25px 0px 0px 25px;/*左側の角を丸く*/
+  border-radius: 25px 0px 0px 25px;
 }
 
 .tag-list-title:before {
@@ -129,7 +129,7 @@ h2.font-round {
   color: white;
   margin-right: 8px;
 }
-
+// タグ絞り込みボタン
 .shadow-btn {
   color:inherit;
   font-family:inherit;
@@ -176,7 +176,7 @@ h2.font-round {
 		box-shadow: inset 0.1em 0.1em 0.1em rgba(233, 218, 255, 0.7), 0.1em 0.1em 0.1em rgba(233, 218, 255, 0.7);
 	}
 }
-
+// 並び替えボタン
 .buttonOutline {
   display: flex;
   align-items: center;
@@ -199,7 +199,7 @@ h2.font-round {
   transition: background-color 0.8s;
   background-color: #c1fff8;
 }
-
+// アイコンボタン用
 .simple-button {
   color: black;
 }
@@ -219,40 +219,39 @@ h2.font-round {
   color: #bf94ff;
 }
 
-/* メニューアイテムのホバースタイル */
+//アカウントボタン
 .menu-item:hover .drop-menu-list {
-  opacity: 0.9; /* 不透明度を最大に */
-  transition: opacity .3s, visibility .3s; /* アニメーション設定 */
-  visibility: visible; /* 下層メニューを表示 */
+  opacity: 0.9;
+  transition: opacity .3s, visibility .3s;
+  visibility: visible;
 }
 
 .menu-item a {
   align-items: center;
-  color: #fff; /* メニューアイテム内のリンクテキストの色 */
+  color: #fff;
   display: flex;
   height: 50px;
   justify-content: center;
-  text-decoration: none; /* リンクの下線を非表示 */
+  text-decoration: none;
   width: 120px;
 }
 
-/* ドロップダウンメニュー */
 .drop-menu {
   position: relative;
 }
-/* ドロップアップメニュー */
+
 .drop-menu-list {
-  background-color: #696969; /* ドロップアップメニューの背景色 */
+  background-color: #696969;
   left: 0;
-  opacity: 0; /* 不透明度を最小に */
+  opacity: 0;
   position: absolute;
-  bottom: 100%; /* top から bottom に変更 */
-  transition: opacity .3s, visibility .3s; /* アニメーション設定 */
-  visibility: hidden; /* 下層メニューを非表示 */
+  bottom: 100%;
+  transition: opacity .3s, visibility .3s;
+  visibility: hidden;
   width: max-content;
   z-index: 1;
 }
-
+// フォントの設定
 @font-face {
   font-family: 'azuki';
   src: font-url('/assets/azuki.ttf');
@@ -310,7 +309,7 @@ h2.font-round {
 .font-size-1{
   font-size: 0.55rem;
 }
-
+// 無限スクロール
 .scroll{
   height: 95vh;
   overflow: auto;
@@ -319,7 +318,7 @@ h2.font-round {
 .scroll::-webkit-scrollbar{
   display:none;
 }
-
+// タグ一覧のアコーディオン
 .tag-title-acordion-button {
   color: #505050;/*文字色*/
   line-height: 0.8;/*行高*/
@@ -372,15 +371,15 @@ h2.font-round {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230c63e4'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   transform: rotate(-180deg);
 }
-
+// 画面が大きい時の設定
 @media screen and (min-width:1025px) {
+  // 画面が大きい時は非表示
   .hidden-big-screen{
     display: none;
   }
 } 
-
+// 画面が小さい時の設定
 @media screen and (max-width:1024px) {
-  /*スマホ用のcssを記述*/
   .mbs-2{
     margin-bottom: 0.1rem;
   }

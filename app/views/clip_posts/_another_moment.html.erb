@@ -1,6 +1,8 @@
 <div class="container border-dark border-1 border mt-1">
   <div class="">
     <div class="row">
+      <div id="error-message">
+      </div>
       <div class="col-10">
         <div>一方その頃</div>
         <div class="d-flex align-items-center">
@@ -13,7 +15,7 @@
       <div class="col-2 d-flex align-items-center">
       <!-- モーダルウィンドウボタン -->
       <%= link_to "#", class: "no-decoration justify-content-center", data: { bs_toggle: "modal", bs_target: "#exampleModal" } do %>
-        <i class="fa-solid fa-circle-info fa-xl" style="color: #a80092;"></i>
+        <i class="fa-solid fa-circle-info fa-xl"></i>
       <% end %>
        <!-- ウィンドウ内容 -->
        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -31,14 +33,22 @@
                </ul>
                <h5> 注意点 </h5>
                <ul>
-                 <li> クリップの長さや他の要因により、クリップの場面までに最大90秒の時間差が発生します。</li>
                  <li> 配信中に作成されたクリップでない場合、アーカイブへの正確な移動ができません。 </li>
+                 <li> クリップの長さや他の要因により、クリップの場面までに最大90秒の時間差が発生します。</li>
                  <li> リストに配信者がいない場合は、その配信者のクリップを投稿することで追加されます。</li>
                </ul>
                <h5> エラー等 </h5>
                <ul>
-                 <li> 次のアーカイブが表示される場合。その時間帯にその配信者はtwitchで配信をしていなかったようです。</li>
-                 <li> アーカイブが切り替わらない場合。twitchでは2ヶ月以上前のアーカイブは消えてしまうことから、アーカイブが見つからない場合があります。</li>
+                 <li> 
+                 「その時配信してなかったカモ。」
+                 <br>クリップの作成タイミングに配信がされていなかった場合に表示されます。
+                 <br>クリップが配信中に作成されたものでない場合も、このエラーが出ることがあります。
+                 <br>クリップに一番近いアーカイブが表示されます。
+                 </li>
+                 <li> 「アーカイブが消えちゃってるヨ。」
+                 <br>2ヶ月以上前のアーカイブは自動で消える為アーカイブが見つからないことがあります。
+                 <br>また、２ヶ月以内であっても配信者の設定でアーカイブを残さないこともできる為、見つからないことがあります。
+                 </li>
                </ul>
              </div>
              <div class="modal-footer">

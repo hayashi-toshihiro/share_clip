@@ -1,7 +1,22 @@
-<div class="fixed-bottom bg-light row">
-  <div class="col-6 text-muted">
-    <%= link_to "利用規約", terms_path, class: "text-muted-link me-3" %>
-    <%= link_to "プライバシーポリシー", privacy_policy_path, class: "text-muted-link me-3" %>
-    <%= link_to "お問い合わせ", contact_path, class: "text-muted-link me-3" %>
+<div class="fixed-bottom bg-secondary bg-opacity-25 d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
+    <%= link_to clip_posts_path(reset_filter: "reset"), class: "fuller-button purple no-decoration" do %>
+      <%= content_tag :i, nil, class: "fa-solid fa-list" %>
+    <% end %>
+  </div>
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
+    <%= link_to likes_clip_posts_path, class: "fuller-button purple no-decoration" do %>
+      <%= content_tag :i, nil, class: "fa-solid fa-thumbs-up" %>
+    <% end %>
+  </div>
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
+    <%= link_to new_clip_post_path, class: "fuller-button purple no-decoration" do %>
+      <%= content_tag :i, nil, class: "fa-solid fa-pencil" %>
+    <% end %>
+  </div>
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
+    <%= link_to tags_path, class: "fuller-button purple no-decoration" do %>
+      <%= content_tag :i, nil, class: "fa-brands fa-searchengin" %>
+    <% end %>
   </div>
 </div>

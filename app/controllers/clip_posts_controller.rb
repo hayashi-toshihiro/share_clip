@@ -1,5 +1,5 @@
 class ClipPostsController < ApplicationController
-  skip_before_action :require_login, only: %i[index show get_clip]
+  skip_before_action :require_login, only: %i[index show get_clip update_video]
   before_action :load_tag_data, only: %i[index new edit likes]
 
   def index
@@ -137,6 +137,7 @@ class ClipPostsController < ApplicationController
     clip_created_time = params[:clip_created_at]
 
     # 動画の内容をピックアップ（時間のずれデータもここで計算し取得）
+  begin
     video_data = TwitchApi.new.get_archive(broadcaster_id, clip_created_time)
     video_id = video_data["data"].first["id"]
 
@@ -151,6 +152,16 @@ class ClipPostsController < ApplicationController
     user_name = video_data["data"].first["user_name"]
     # セッションを使って、リロード後もセレクトボックスの値と得たデータを保持しておき表示する。
     session[:video_data] = { video_id: video_id, formatted_time: formatted_time, user_name: user_name }
+    duration_parts = video_data["data"].first["duration"].scan(/\d+h\d+m\d+s/).first.split(/[hms]/).map(&:to_i)
+    duration_seconds = duration_parts[0] * 3600 + duration_parts[1] * 60 + duration_parts[2]
+    if total_seconds > duration_seconds
+      render json: { over: true }
+      return
+    end
+  rescue
+    render json: { error: true }
+    return
+  end
     # javascriptによって、この後showアクションを実行する
     render json: { success: true }
   end
@@ -189,8 +200,13 @@ class ClipPostsController < ApplicationController
       set_filter("tag_streamer", params[:tag_streamer])
       ClipPost.with_streamer(params[:tag_streamer])
     elsif params[:recommend]
-      clip_posts = RecommendClip.new(current_user)
-      clip_posts.recommend_clip.order("RANDOM()")
+      if logged_in?
+        clip_posts = RecommendClip.new(current_user)
+        clip_posts.recommend_clip.order("RANDOM()")
+      else
+        redirect_to login_path, danger: "ログインして欲しいナ"
+        ClipPost.all
+      end
     elsif params[:reset_filter]
       session.delete(:filter)
       session.delete(:filter_value)

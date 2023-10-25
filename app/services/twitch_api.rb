@@ -63,7 +63,7 @@ class TwitchApi
     # clip_created_time以前の最も近いcreated_atを取得
     nearest_created_at = find_nearest_created_at(clip_created_time, created_at_times)
     # ビデオデータのIDを取得
-    video_id = response['data'].find { |video| Time.zone.parse(video['created_at']) == nearest_created_at }&.fetch('id', nil)
+    video_id = response['data'].find { |video| Time.zone.parse(video['created_at']) == nearest_created_at }.fetch('id')
 
     # クリップ作成時刻とビデオ作成時刻の差を秒単位で計算
     time_difference_seconds = calculate_time_difference_in_seconds(Time.zone.parse(clip_created_time), nearest_created_at)
@@ -105,8 +105,8 @@ class TwitchApi
   def send_request(url)
     # ヘッダーの設定
     headers = {
-      'Client-ID' => '11gshrju07m1wwgyqgpjrir3scixrl',
-      'Authorization' => 'Bearer j0jjz62acp6manjs0pgiaa7a93haoi'
+      'Client-ID' => Rails.application.credentials.twitch_api[:client_id],
+      'Authorization' => Rails.application.credentials.twitch_api[:authorization]
     }
     # GETリクエストの送信
     response = RestClient.get(url, headers)

@@ -1,11 +1,11 @@
 <div class="col-3 hidden-small-screen bg-light">
   <div class="scroll sticky-top d-flex flex-column">
-    <%= link_to clip_posts_path, class: "text-center font-title text-info font-3 no-decoration" do %>
+    <%= link_to clip_posts_path(reset_filter: "reset"), class: "text-center font-title text-info font-3 no-decoration" do %>
       <h3>Clip Reactor</h3>
     <% end %>
   <!-- メニュー -->
     <div class="row bg-light mt-3 p-3">
-      <%= link_to clip_posts_path, class: "mt-3 fuller-button purple no-decoration" do %>
+      <%= link_to clip_posts_path(reset_filter: "reset"), class: "mt-3 fuller-button purple no-decoration" do %>
         <div class="d-flex align-items-start">
           <div><%= content_tag :i, nil, class: "fa-solid fa-list" %></div>
           <div class="ms-3">クリップ一覧</div>
