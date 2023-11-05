@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root to: "clip_posts#index"
+  # Sitemap
+  get 'sitemap', to: redirect('https://s3-ap-northeast-1.amazonaws.com/clipreactor/sitemaps/sitemap.xml.gz')
 
   # Test Controller
   get 'test', to: 'test#new'
