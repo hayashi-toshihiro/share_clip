@@ -5,7 +5,7 @@
         配信者で見つける
       </button>
     </h2>
-    <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
       <div class="accordion-body">
         <% ClipPost.tags_on(:streamers).order(name: :asc).each do |streamer| %>
           <% streamer_image = @streamers_image[streamer.name] %>
@@ -33,7 +33,7 @@
         ゲームで見つける
       </button>
     </h2>
-    <div id="flush-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlush">
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlush">
       <div class="accordion-body d-flex flex-wrap">
         <% @games.each do |game| %>
           <%= link_to clip_posts_path(tag_game: game.name), class: "no-decoration shadow-btn m-3" do %>
@@ -53,7 +53,7 @@
         イベントで見つける
       </button>
     </h2>
-    <div id="flush-collapseThree" class="accordion-collapse collapse show" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlush">
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlush">
       <div class="accordion-body d-flex flex-wrap">
         <% @tags.each do |tag| %>
           <div class="flex-item ms-1">

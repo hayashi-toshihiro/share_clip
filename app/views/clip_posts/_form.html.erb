@@ -20,7 +20,7 @@
     <% end %>
     </div>
     <div class="mbs-2">
-      <%= render 'tag_form.html.erb', clip_post: clip_post %>
+      <%= render 'tag_form', clip_post: clip_post %>
     </div>
     <div class="d-flex justify-content-center mbs-2">
       <div class="row<%= clip_post.content_title.blank? ? '' : ' form-control border bg-white' %>" style="width: 98%">

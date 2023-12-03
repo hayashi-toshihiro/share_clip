@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
+
   has_many :clip_posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_clip_posts, through: :likes, source: :clip_post
@@ -10,6 +11,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, presence: true
   validates :password, confirmation: true
+  validates :password, presence: true, length: { minimum: 4 }
 
   def own?(object)
     id == object.user_id
