@@ -1,0 +1,1 @@
+{"ast":null,"code":"define(function () {\n  \"use strict\";\n\n  // https://www.w3.org/TR/css3-selectors/#whitespace\n  return \"[\\\\x20\\\\t\\\\r\\\\n\\\\f]\";\n});","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

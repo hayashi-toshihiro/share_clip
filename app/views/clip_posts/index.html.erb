@@ -13,7 +13,7 @@
   <div class="scroll-list jscroll">
     <% @clip_posts.each do |clip_post| %>
       <div class="mb-1 background-color-lightred">
-        <%= render 'form.html.erb', clip_post: clip_post %>
+        <%= render 'form', clip_post: clip_post %>
       </div>
     <% end %>
     <%= paginate @clip_posts %>

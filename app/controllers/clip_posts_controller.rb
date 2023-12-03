@@ -1,6 +1,7 @@
 class ClipPostsController < ApplicationController
   skip_before_action :require_login, only: %i[index show get_clip update_video]
   before_action :load_tag_data, only: %i[index new edit likes]
+  before_action :correct_user, only: %i[edit destory]
 
   def index
     # タグでの絞り込み処理(+おすすめ機能)
@@ -106,7 +107,7 @@ class ClipPostsController < ApplicationController
     # preview_postに全てのデータを代入
     preview_post.assign_attributes(set_clip_post_attribute(clip_data, game_data, streamer_data))
     respond_to do |format|
-      format.js { render 'get_clip.js.erb', locals: { preview_post: preview_post } }
+      format.js { render 'get_clip', locals: { preview_post: preview_post } }
     end
   end
 

@@ -19,7 +19,7 @@
     </div>
     <div class="row mbs-2 bg-white">
       <div class="mbs-2">
-        <%= render 'tag_form.html.erb', clip_post: @clip_post %>
+        <%= render 'tag_form', clip_post: @clip_post %>
       </div>
       <div class="d-flex justify-content-center mbs-2">
         <div class="row<%= @clip_post.content_title.blank? ? '' : ' form-control border bg-white' %>" style="width: 98%">
@@ -28,10 +28,10 @@
       </div>
     </div>
     <div class="row mbs-2 bg-white ps-3 pe-3">
-     <%= render 'crud_menus.html.erb', clip_post: @clip_post %>
+     <%= render 'crud_menus', clip_post: @clip_post %>
     </div>
   </div>
-  <%= render 'another_moment.html.erb' %>
+  <%= render 'another_moment' %>
 
   <!-- コメントの投稿フォーム -->
   <div class="container border-dark border-1 border mt-2">
@@ -48,7 +48,7 @@
     <% end %>
     <!-- コメント一覧 -->
     <div class="mb-5" id="comment_form">
-    <%= render 'comment_form.html.erb', comments: @comments %>
+    <%= render 'comment_form', comments: @comments %>
     </div>
   </div>
 </div>
